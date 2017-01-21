@@ -6,7 +6,6 @@ export function getNonce() {
 }
 
 export function setNonce( value ) {
-    console.log( 'set nonce : ' + value );
     localStorage.setItem( 'nonce', value );
 }
 
