@@ -1,15 +1,9 @@
 import React from 'react';
 
-import { AuthService, login } from '../../../services/authentication';
-
-export default class Signin extends React.Component {
-
-    signIn() {
-        login();
-    }
+export default class Login extends React.Component {
 
     render() {
-        return <button onClick={this.signIn} >Signin/up</button>
+        return <button onClick={this.props.login} >Signin/up</button>
         
     }
 
