@@ -18,13 +18,15 @@ export function addCard( card ) {
       .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
-        if ( error.response.status == 400 ) {
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 400 ) {
           dispatch( createAddCardErrorFromResponse( error.response ) )
 
-        } else if ( error.response.status == 401 ) {
+        } else if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
         
-        } else if ( error.response.status <= 500 ) {
+        } else if ( responseStatus >= 500 ) {
           dispatch( createInternalServerErrorFromResponse( error.response ) );
 
         } else {
@@ -51,10 +53,12 @@ export function loadAllCardsForCurrentUser () {
       .then( response => dispatch( { type: 'CARDS_FETCHED', payload: response.data  } ) )
       .catch( error => { 
 
-        if ( error.response.status == 401 ) {
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
         
-        } else if ( error.response.status <= 500 ) {
+        } else if ( responseStatus <= 500 ) {
           dispatch( createInternalServerErrorFromResponse( error.response ) );
 
         } else {
@@ -104,4 +108,12 @@ const createAddCardErrorFromResponse = ( response ) => {
 const createInternalServerErrorFromResponse = ( response ) => {
 
   return internalServerError( response.data.id );
+}
+
+const getStatusCodeFromResponse = ( response ) => {
+
+  return ( response && response.status )
+       ? response.status
+       : -1;
+
 }
