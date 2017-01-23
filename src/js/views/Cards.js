@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCard } from '../actions/cardActions';
+import { addCard, loadAllCardsForCurrentUser } from '../actions/cardActions';
 
 import AddCard from './cards/AddCard';
+import CardList from './cards/CardList';
 
 const mapStateToProps = ( state ) => {
 
@@ -16,7 +17,8 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 
   return {
-    submitAddCard: ( card ) => dispatch( addCard( card ) )
+    submitAddCard: ( card ) => dispatch( addCard( card ) ),
+    loadCards: () => dispatch( loadAllCardsForCurrentUser() )
   }
 
 }
@@ -26,7 +28,8 @@ class Cards extends React.Component {
   render() {
     return (
       <div>
-        <AddCard addCardState={ this.props.addCardState }  addCard={this.props.submitAddCard.bind( this )}/>
+        <AddCard addCardState={ this.props.addCardState }  addCard={ this.props.submitAddCard.bind( this ) }/>
+        <CardList loadCards={ this.props.loadCards } cards={ this.props.cards.cards }/>
       </div>
     );
   }

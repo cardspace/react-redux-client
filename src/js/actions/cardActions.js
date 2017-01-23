@@ -15,16 +15,16 @@ export function addCard( card ) {
     axios
       .post( 'https://cardspace-api-dev.herokuapp.com/v1/cards', card, config )
       .then( response => dispatch( { type: 'CARD_CREATED' } ) )
+      .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
         if ( error.response.status == 400 ) {
           dispatch( createAddCardErrorFromResponse( error.response ) )
 
         } else if ( error.response.status == 401 ) {
-
           dispatch( authenticationError() );
         
-        } else if ( error.response <= 500 ) {
+        } else if ( error.response.status <= 500 ) {
           dispatch( createInternalServerErrorFromResponse( error.response ) );
 
         } else {
@@ -35,6 +35,37 @@ export function addCard( card ) {
   }
 
 }
+
+export function loadAllCardsForCurrentUser () {
+
+  return ( dispatch ) => {
+    console.log( 'loadAllCardsForCurrentUser' );
+
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${getIdToken()}` }
+    };
+
+    axios
+      .get( 'https://cardspace-api-dev.herokuapp.com/v1/cards', config )
+      .then( response => dispatch( { type: 'CARDS_FETCHED', payload: response.data  } ) )
+      .catch( error => { 
+
+        if ( error.response.status == 401 ) {
+          dispatch( authenticationError() );
+        
+        } else if ( error.response.status <= 500 ) {
+          dispatch( createInternalServerErrorFromResponse( error.response ) );
+
+        } else {
+          dispatch( unknownError() );
+        }
+
+      });
+
+  }
+}
+
 
 const createAddCardErrorFromResponse = ( response ) => {
 
