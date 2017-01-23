@@ -1,12 +1,16 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import { cardsReducer } from './cards-reducer';
 import { addCardReducer } from './add-card-reducer';
+import { bannerReducer } from './banner-reducer';
+import { cardsReducer } from './cards-reducer';
+import { securityReducer } from './security-reducer';
 
 const reducers = combineReducers({
     addCard: addCardReducer,
-    cards: cardsReducer
+    banner: bannerReducer,
+    cards: cardsReducer,
+    security: securityReducer
 });
 
 const middleware = applyMiddleware( thunk, logger() );

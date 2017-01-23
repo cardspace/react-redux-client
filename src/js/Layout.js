@@ -1,16 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import Header from "./components/presentation/Header";
+import ErrorBanner from './components/presentation/ErrorBanner';
+import Header from './components/presentation/Header';
+
 
 export default class Layout extends React.Component {
 
   render() {
+
     return (
       <div>
         <Header />
+        <ErrorBanner />
 
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }
 }
+

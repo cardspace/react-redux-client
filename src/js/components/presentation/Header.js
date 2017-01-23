@@ -14,31 +14,39 @@
 // ho you have to make some compromises )
 //
 
-import React from "react";
-import { browserHistory } from 'react-router';
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { login } from '../../services/authentication';
-import { clearIdToken, hasIdToken } from '../../services/authentication-store';
+import { displayLoginForm, logout } from '../../actions/securityActions'
 
 import Login from './Header/Login';
 import Logout from './Header/Logout';
-import Title from "./Header/Title";
+import Title from './Header/Title';
 
-
-export default class Header extends React.Component {
-
-  logout() {
-    clearIdToken();
-    browserHistory.push( '/' );
+const mapStateToProps = ( state ) => {
+  return {
+    isLoggedIn: state.security.isLoggedIn
   }
+}
 
+const mapDispatchToProps = ( dispatch ) => {
+
+  return {
+    login: () => dispatch( displayLoginForm() ),
+    logout: () => dispatch( logout() )
+  }
+}
+
+
+class Header extends React.Component {
 
   render() {
+
     let button = null;
-    if ( !hasIdToken() ) {
-      button = <Login login={login} />;
+    if ( !this.props.isLoggedIn ) {
+      button = <Login login={ this.props.login.bind( this ) } />;
     } else {
-      button = <Logout logout={this.logout} />;
+      button = <Logout logout={ this.props.logout.bind( this ) } />;
     }
 
     return (
@@ -48,4 +56,10 @@ export default class Header extends React.Component {
       </div>
     );
   }
+
 }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header)

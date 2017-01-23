@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { getIdToken, hasIdToken } from '../services/authentication-store';
+import { authenticationError, internalServerError, unknownError } from './errorActions';
 
 export function addCard( card ) {
   return ( dispatch ) => {
@@ -17,24 +18,20 @@ export function addCard( card ) {
       .catch( error => { 
 
         if ( error.response.status == 400 ) {
-          dispatch( createAddCardErrorFromResponse( error.response )    )
+          dispatch( createAddCardErrorFromResponse( error.response ) )
+
+        } else if ( error.response.status == 401 ) {
+
+          dispatch( authenticationError() );
         
         } else if ( error.response <= 500 ) {
-          dispatch( createAddCardinternalServerError() );
+          dispatch( createInternalServerErrorFromResponse( error.response ) );
 
         } else {
-          dispatch( createAddCardUnknownErrorError() );
+          dispatch( unknownError() );
         }
 
       });
-
-    // if no id token we have a problem ???
-
-    // dispatch adding card
-    // post card to the api
-    // then  - 201, 400, 500
-    // catch - ( ? ) 
-
   }
 
 }
@@ -73,12 +70,7 @@ const createAddCardErrorFromResponse = ( response ) => {
 
 }
 
-const createAddCardinternalServerError = () => {
+const createInternalServerErrorFromResponse = ( response ) => {
 
-  return { type: 'ADD_CARD_INTERNAL_SERVER_ERROR' };
-}
-
-const createAddCardUnknownErrorError = () => {
-
-  return { type: 'ADD_CARD_UNKNOWN_ERROR' }
+  return internalServerError( response.data.id );
 }
