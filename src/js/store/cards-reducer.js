@@ -50,7 +50,6 @@ export function cardsReducer( state=initialState, action ) {
         }
 
     } else if ( action.type == 'CARD_UPDATED' ) {
-        //const nextState =  { ...state, cardEditState: initialCardEditState };
         const nextState = {
             cards: state.cards,
             cardEditState: initialCardEditState
