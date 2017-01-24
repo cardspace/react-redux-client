@@ -18,3 +18,8 @@ export function unknownError( ) {
     
     return { type: 'UNKNOWN_ERROR' }
 }
+
+export function permissionError() {
+
+    return { type: 'PERMISSION_ERROR' }
+}
