@@ -4,9 +4,6 @@ export default class CardList extends React.Component {
 
     constructor( props ) {
         super( props );
-
-        console.log( this.props )
-
         this.props.loadCards();
     }
 
@@ -15,8 +12,8 @@ export default class CardList extends React.Component {
 
         const cardIsBeingEdited = ( ) =>  {
 
-            return this.props.cards.cardEditState
-                && this.props.cards.cardEditState.data.id == card.id;
+            return this.props.cardListState.cardEditState
+                && this.props.cardListState.cardEditState.data.id == card.id;
 
         }
 
@@ -34,7 +31,7 @@ export default class CardList extends React.Component {
         const cardEditor = () => {
             return(
                 <CardEditor
-                    cardEditState={ this.props.cards.cardEditState }
+                    cardEditState={ this.props.cardListState.cardEditState }
                     updateCard={ this.props.updateCard }
                     cancelEdit={ this.props.cancelEdit }
                 />
@@ -57,7 +54,7 @@ export default class CardList extends React.Component {
     render(){
         return(
             <ul>
-                { this.props.cards.cards.map( card => this.createLineItem( card )  ) }
+                { this.props.cardListState.cards.map( card => this.createLineItem( card )  ) }
             </ul>
         );
     }
@@ -99,17 +96,8 @@ class CardEditor extends React.Component {
 
     onSubmit( event ) {
         event.preventDefault();
-        this.props.addCard( this.convertStateToSubmitPayload ( this.state ) );
-    }
-
-
-
-    onSubmit( event ) {
-        event.preventDefault();
 
         const submitPayload = this.convertStateToSubmitPayload( this.state );
-        console.log( 'edit line item submit' );
-        console.log( submitPayload );
         this.props.updateCard( submitPayload );
     }
 

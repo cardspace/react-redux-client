@@ -9,7 +9,7 @@ const mapStateToProps = ( state ) => {
 
   return {
     addCardState: state.addCard,
-    cards: state.cards
+    cardListState: state.cardList
   }
 
 }
@@ -42,7 +42,7 @@ class Cards extends React.Component {
             editCardInList={ this.props.editCardInList }
             updateCard={ this.props.updateCard }
             cancelEdit= { this.props.cancelEdit }
-            cards={ this.props.cards } 
+            cardListState={ this.props.cardListState }
         />
       </div>
     );

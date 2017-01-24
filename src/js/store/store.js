@@ -3,13 +3,13 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { addCardReducer } from './add-card-reducer';
 import { bannerReducer } from './banner-reducer';
-import { cardsReducer } from './cards-reducer';
+import { cardListReducer } from './cards-list-reducer';
 import { securityReducer } from './security-reducer';
 
 const reducers = combineReducers({
     addCard: addCardReducer,
     banner: bannerReducer,
-    cards: cardsReducer,
+    cardList: cardListReducer,
     security: securityReducer
 });
 

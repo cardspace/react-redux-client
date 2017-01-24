@@ -23,7 +23,7 @@ const initialState = {
     cardEditState: initialCardEditState
 }
 
-export function cardsReducer( state=initialState, action ) {
+export function cardListReducer( state=initialState, action ) {
 
     if ( action.type == 'CARDS_FETCHED' ) {
         return { ...state, cards: action.payload }
