@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Route, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 
-import { authenticated } from './actions/securityActions';
+import { authenticated } from './actions/security-actions';
 
 import Layout from './Layout'
 import About from './views/About'
@@ -29,8 +29,6 @@ const mapDispatchToProps = ( dispatch ) => {
     }
   }  
 }
-
-// todo: after authentication redirec to another page.
 
 class Routes extends React.Component {
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { getIdToken, hasIdToken } from '../services/authentication-store';
-import { authenticationError, internalServerError, permissionError, unknownError } from './errorActions';
+import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from './error-actions';
 
 export function addCard( card ) {
   return ( dispatch ) => {
@@ -21,7 +21,7 @@ export function addCard( card ) {
         var responseStatus = getStatusCodeFromResponse( error.response );
 
         if ( responseStatus == 400 ) {
-          dispatch( createAddCardErrorFromResponse( error.response ) )
+          dispatch( createCardValidationErrorFromResponse( error.response, 'ADD_CARD_ERROR' ) );
 
         } else if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
@@ -38,10 +38,19 @@ export function addCard( card ) {
 
 }
 
+export function editCardInCardList( cardId ) {
+
+    return { type: 'EDIT_CARD_IN_CARD_LIST', payload: cardId }
+
+}
+
+export function cancelEditCardInCardList( cardId ) {
+
+    return { type: 'CANCEL_EDIT_CARD_IN_CARD_LIST', payload: cardId }
+}
+
 export function updateCard( card ) {
   return ( dispatch ) => {
-
-    console.log( 'updateCard' );
 
     dispatch(  { type: "UPDATE_CARD_SUBMITTED", payload: card } );
 
@@ -58,7 +67,7 @@ export function updateCard( card ) {
         var responseStatus = getStatusCodeFromResponse( error.response );
 
         if ( responseStatus == 400 ) {
-          dispatch( createEditCardErrorFromResponse( error.response ) );
+          dispatch( createCardValidationErrorFromResponse( error.response, 'UPDATE_CARD_ERROR' ) );
 
         } else if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
@@ -73,27 +82,24 @@ export function updateCard( card ) {
           dispatch( unknownError() );
   
         }
-
-
-/*
-
-
-        } else if ( responseStatus == 401 ) {
-          dispatch( authenticationError() );
-        
-        } else if ( responseStatus >= 500 ) {
-          dispatch( createInternalServerErrorFromResponse( error.response ) );
-
-        } else {
-          dispatch( unknownError() );
-        }
-*/
       });    
 
   }  
 }
 
 export function deleteCard( cardId ) {
+
+  // Ations that should be dispatched if the card is considered
+  // delete, Note if there is a 404 ( Not Found ) response it
+  // is considered that the card has been deleted.
+  const cardDeleted = ( cardId ) => {
+    return ( dispatch ) => {
+      dispatch( { type: 'CARD_DELETED', payload: cardId } );
+      dispatch( loadAllCardsForCurrentUser() );
+    }
+  }
+
+
   return ( dispatch ) => {
 
     dispatch(  { type: "DELETE_CARD_SUBMITTED", payload: cardId } );
@@ -131,18 +137,10 @@ export function deleteCard( cardId ) {
 
 }
 
-function cardDeleted ( cardId ) {
-  return ( dispatch ) => {
-    dispatch( { type: 'CARD_DELETED', payload: cardId } );
-    dispatch( loadAllCardsForCurrentUser() );
-  }
-}
 
 export function loadAllCardsForCurrentUser () {
 
   return ( dispatch ) => {
-    console.log( 'loadAllCardsForCurrentUser' );
-
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
@@ -172,74 +170,19 @@ export function loadAllCardsForCurrentUser () {
 }
 
 
-const createAddCardErrorFromResponse = ( response ) => {
+const cardFieldNames = [ 'title', 'description', 'url' ];
 
-  const getField = ( fieldName, data ) => {
+const createCardValidationErrorFromResponse = ( response, type ) => {
 
-    if (  data
-       && data.fieldErrors ) {
-
-         return data.fieldErrors[ fieldName ];
-    
-    } else {
-        return undefined;
-    }
-
-  }
-
-  const getErrorMessages = ( field ) => {
-
-    return ( field && field.errors )
-         ? field.errors.map( error => error.message )
-         : [];
-  }
-
+  var payload 
+        = createValidationPayloadFromResponse( response, cardFieldNames );
 
   return { 
-    type: 'ADD_CARD_ERROR',
-    payload: {
-      description: getErrorMessages( getField( 'description', response.data ) ),
-      title: getErrorMessages( getField( 'title', response.data ) ),
-      url: getErrorMessages( getField( 'url', response.data ) )
-    }
-  };
-
-}
-
-const createEditCardErrorFromResponse = ( response ) => {
-
-  const getField = ( fieldName, data ) => {
-
-    if (  data
-       && data.fieldErrors ) {
-
-         return data.fieldErrors[ fieldName ];
-    
-    } else {
-        return undefined;
-    }
-
+    type,
+    payload
   }
 
-  const getErrorMessages = ( field ) => {
-
-    return ( field && field.errors )
-         ? field.errors.map( error => error.message )
-         : [];
-  }
-
-
-  return { 
-    type: 'UPDATE_CARD_ERROR',
-    payload: {
-      description: getErrorMessages( getField( 'description', response.data ) ),
-      title: getErrorMessages( getField( 'title', response.data ) ),
-      url: getErrorMessages( getField( 'url', response.data ) )
-    }
-  };
-
 }
-
 
 const createInternalServerErrorFromResponse = ( response ) => {
 

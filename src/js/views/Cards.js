@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCard, updateCard, loadAllCardsForCurrentUser, deleteCard } from '../actions/cardActions';
-import { editCardInCardList, cancelEditCarInCardList } from '../actions/cardListActions';
+import { addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from '../actions/card-list-actions';
 
 import AddCard from './cards/AddCard';
 import CardList from './cards/CardList';
@@ -23,7 +22,7 @@ const mapDispatchToProps = ( dispatch ) => {
     submitDeleteCard: ( cardId ) => dispatch( deleteCard( cardId ) ),
     editCardInList: ( cardId ) => dispatch( editCardInCardList( cardId ) ),
     updateCard: ( card ) => dispatch( updateCard( card ) ),
-    cancelEdit: ( cardId ) => dispatch(  cancelEditCarInCardList( cardId ) )
+    cancelEdit: ( cardId ) => dispatch( cancelEditCardInCardList( cardId ) )
   }
 
 }
