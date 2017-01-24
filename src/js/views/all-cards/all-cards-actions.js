@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { getIdToken, hasIdToken } from '../services/authentication-store';
-import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from './error-actions';
+import { getIdToken, hasIdToken } from '../../services/authentication-store';
+import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from '../layout/error-actions';
 
 export function addCard( card ) {
   return ( dispatch ) => {

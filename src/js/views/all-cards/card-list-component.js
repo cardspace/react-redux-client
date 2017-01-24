@@ -129,7 +129,7 @@ class CardEditor extends React.Component {
     render() {
         return(
             <form onSubmit={ this.onSubmit.bind( this ) }>
-                <label for='title'>Tiltle:</label>
+                <label for='title'>Title:</label>
                 <input 
                     type='text' 
                     name='title' 

@@ -1,5 +1,5 @@
-import { login } from '../services/authentication';
-import { clearIdToken, setIdToken } from '../services/authentication-store';
+import { login } from '../../services/authentication';
+import { clearIdToken, setIdToken } from '../../services/authentication-store';
 import { browserHistory } from 'react-router';
 
 export function displayLoginForm() {

@@ -17,11 +17,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { displayLoginForm, logout } from '../../actions/security-actions'
+import { displayLoginForm, logout } from './security-actions'
 
-import Login from './Header/Login';
-import Logout from './Header/Logout';
-import Title from './Header/Title';
+import Login from './header/Login';
+import Logout from './header/Logout';
+import Title from './header/Title';
 
 const mapStateToProps = ( state ) => {
   return {

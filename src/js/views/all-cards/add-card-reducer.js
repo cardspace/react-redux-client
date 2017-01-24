@@ -19,7 +19,7 @@ const initialState = {
 
 // todo: move the action handlers to separate functions
 
-export function addCardReducer( state=initialState, action ) {
+export function allCardsAddCardReducer( state=initialState, action ) {
 
     if ( action.type == "ADD_CARD_SUBMITTED" ) {
 

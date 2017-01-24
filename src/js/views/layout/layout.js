@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ErrorBanner from './components/presentation/ErrorBanner';
-import Header from './components/presentation/Header';
+import ErrorBanner from './error-banner-component';
+import Header from './header-component';
 
 
 export default class Layout extends React.Component {

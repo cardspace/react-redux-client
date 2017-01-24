@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from '../actions/card-list-actions';
+import { addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from './all-cards-actions';
 
-import AddCard from './cards/AddCard';
-import CardList from './cards/CardList';
+import AddCard from './add-card-component';
+import CardList from './card-list-component';
 
 const mapStateToProps = ( state ) => {
 
   return {
-    addCardState: state.addCard,
-    cardListState: state.cardList
+    addCardState: state.allCardsAddCard,
+    cardListState: state.allCardsCardList
   }
-
+  
 }
 
 const mapDispatchToProps = ( dispatch ) => {
@@ -27,7 +27,7 @@ const mapDispatchToProps = ( dispatch ) => {
 
 }
 
-class Cards extends React.Component {
+class AllCardsView extends React.Component {
 
   render() {
     return (
@@ -41,7 +41,7 @@ class Cards extends React.Component {
             deleteCard={ this.props.submitDeleteCard } 
             editCardInList={ this.props.editCardInList }
             updateCard={ this.props.updateCard }
-            cancelEdit= { this.props.cancelEdit }
+            cancelEdit={ this.props.cancelEdit }
             cardListState={ this.props.cardListState }
         />
       </div>
@@ -52,4 +52,4 @@ class Cards extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Cards)
+)( AllCardsView )

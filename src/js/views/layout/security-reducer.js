@@ -1,4 +1,4 @@
-import { hasIdToken } from '../services/authentication-store';
+import { hasIdToken } from '../../services/authentication-store';
 
 const initialState = {
     isLoggedIn: hasIdToken(),

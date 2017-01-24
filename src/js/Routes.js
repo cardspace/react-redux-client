@@ -2,12 +2,11 @@ import React from 'react'
 import { Router, Route, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 
-import { authenticated } from './actions/security-actions';
+import { authenticated } from './views/layout/security-actions';
 
-import Layout from './Layout'
-import About from './views/About'
-import Cards from './views/Cards'
-import UserAuthenticated from './views/UserAuthenticated';
+import Layout from './views/layout/layout';
+import AboutView from './views/about/about-view';
+import AllCardsView from './views/all-cards/all-cards-view';
 
 const mapStateToProps = ( state ) => {
   return {
@@ -37,10 +36,10 @@ class Routes extends React.Component {
     return (
       <Router history={browserHistory}>
         <Route component={Layout}>
-            <Route path='/' component={About} />
-            <Route path='/about' component={About} onEnter={this.props.requiresAuthentication.bind(this)} />
-            <Route path='/cards' component={Cards} onEnter={this.props.requiresAuthentication.bind(this)} />
-            <Route path='/user-authenticated' onEnter={this.props.authenticated.bind(this)} component={UserAuthenticated} />
+            <Route path='/' component={ AboutView } />
+            <Route path='/about' component={ AboutView } onEnter={ this.props.requiresAuthentication.bind( this ) } />
+            <Route path='/cards' component={ AllCardsView } onEnter={ this.props.requiresAuthentication.bind( this ) } />
+            <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } component={ AboutView } />
         </Route>
       </Router>
     );
