@@ -19,6 +19,7 @@ const mapDispatchToProps = ( dispatch ) => {
 
     authenticated: function( nextState, replace ) {
       dispatch( authenticated( nextState.location.hash.replace( '#id_token=', '' ) ) );
+      replace( '/' );
     },
 
     requiresAuthentication: function ( nextState, replace ) {

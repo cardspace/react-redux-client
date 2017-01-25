@@ -33,18 +33,10 @@ export function allCardsAddCardReducer( state=initialState, action ) {
             }
         };
 
-    }
-    else if ( action.type == 'CARD_CREATED' ) {
+    } else if ( action.type == 'CARD_CREATED' ) {
         return initialState;
 
     } else if ( action.type == 'ADD_CARD_ERROR' ) {
-
-        // return state;
-        const getError = ( field ) => {
-
-            return field || [];  
-                 
-        }
 
         return {
             ...state,

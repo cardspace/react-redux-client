@@ -4,6 +4,8 @@ export default class CardList extends React.Component {
 
     constructor( props ) {
         super( props );
+
+        console.log( props );
         this.props.loadCards();
     }
 
@@ -137,6 +139,12 @@ class CardEditor extends React.Component {
                     value={ this.state.title.value }
                     onChange={ this.titleChanged.bind( this ) }
                 />
+                <ul>
+                  { this.props.cardEditState.data.title.error.map( ( error ) => {
+                     return <li>{error}</li>;
+                   })}
+                </ul>
+
 
                 <label for='description'>Description:</label>
                 <input 
@@ -146,6 +154,12 @@ class CardEditor extends React.Component {
                     value={ this.state.description.value }                    
                     onChange={ this.descriptionChanged.bind( this ) }
                 />
+                <ul>
+                  { this.props.cardEditState.data.description.error.map( ( error ) => {
+                     return <li>{error}</li>;
+                   })}
+                </ul>
+
 
                 <label for='url'>Url:</label>
                 <input 
@@ -155,6 +169,12 @@ class CardEditor extends React.Component {
                     value={ this.state.url.value }
                     onChange={ this.urlChanged.bind( this ) }
                 />
+                <ul>
+                  { this.props.cardEditState.data.url.error.map( ( error ) => {
+                     return <li>{error}</li>;
+                   })}
+                </ul>
+
 
                 <input type="submit" value="Submit" />
                 <button type="button" onClick= { this.props.cancelEdit.bind( this, this.state.id ) } >Cancel</button>
