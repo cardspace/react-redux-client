@@ -1,3 +1,5 @@
+import { allCardsActions } from './all-cards-action-types';
+
 const editState = {
     editing: 'editing',
     submitted: 'submitted'
@@ -21,7 +23,7 @@ const initialState = {
 
 export function allCardsAddCardReducer( state=initialState, action ) {
 
-    if ( action.type == "ADD_CARD_SUBMITTED" ) {
+    if ( action.type == allCardsActions.ADD_CARD_BEFORE_SUBMIT ) {
 
         return {  
             ...state,
@@ -33,10 +35,10 @@ export function allCardsAddCardReducer( state=initialState, action ) {
             }
         };
 
-    } else if ( action.type == 'CARD_CREATED' ) {
+    } else if ( action.type == allCardsActions.ADD_CARD_SUCCEEDED ) {
         return initialState;
 
-    } else if ( action.type == 'ADD_CARD_ERROR' ) {
+    } else if ( action.type == allCardsActions.ADD_CARD_FAILED_VALIDATION ) {
 
         return {
             ...state,

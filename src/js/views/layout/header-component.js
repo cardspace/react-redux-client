@@ -17,7 +17,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { displayLoginForm, logout } from './security-actions'
+import { displayLoginForm, logout } from '../../services/security-actions'
 
 import Login from './header/Login';
 import Logout from './header/Logout';

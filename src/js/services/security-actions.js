@@ -1,6 +1,7 @@
-import { login } from '../../services/authentication';
-import { clearIdToken, setIdToken } from '../../services/authentication-store';
+import { login } from './authentication';
+import { clearIdToken, setIdToken } from './authentication-store';
 import { browserHistory } from 'react-router';
+import { securityActions } from './security-action-types';
 
 export function displayLoginForm() {
     login();
@@ -9,14 +10,14 @@ export function displayLoginForm() {
 export function authenticated( id_token ) {
     return ( dispatch ) => {
         setIdToken( id_token );
-        dispatch({ type: 'USER_LOGGED_IN' });
+        dispatch({ type: securityActions.USER_LOGGED_IN });
     }
 }
 
 export function logout() {
     return ( dispatch ) => {
         clearIdToken();
-        dispatch( { type: 'USER_LOGGED_OUT' } );
+        dispatch( { type: securityActions.USER_LOGGED_OUT } );
         browserHistory.push( '/' );
     }
 }

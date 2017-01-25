@@ -1,3 +1,5 @@
+import { allCardsActions } from './all-cards-action-types';
+
 const editState = {
     editing: 'editing',
     submitted: 'submitted'
@@ -25,10 +27,10 @@ const initialState = {
 
 export function allCardsCardListReducer( state=initialState, action ) {
 
-    if ( action.type == 'CARDS_FETCHED' ) {
+    if ( action.type == allCardsActions.CARDS_FETCHED ) {
         return { ...state, cards: action.payload }
 
-    } else if ( action.type == 'EDIT_CARD_IN_CARD_LIST' ) {
+    } else if ( action.type == allCardsActions.EDIT_CARD ) {
         let card = state.cards.find( c => c.id == action.payload );
 
         let editState = { };
@@ -49,9 +51,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
             return state
         }
 
-    } else if ( action.type == 'UPDATE_CARD_SUBMITTED' ) {
-
-        console.log( action );
+    } else if ( action.type == allCardsActions.EDIT_CARD_BEFORE_SUBMIT ) {
 
         // Make the edit state reflect what has been submitted for update.
         // The update is included as the action payload.
@@ -69,7 +69,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
             }
         }
 
-    } else if ( action.type == 'CARD_UPDATED' ) {
+    } else if ( action.type == allCardsActions.EDIT_CARD_SUCCEEDED ) {
         const nextState = {
             cards: state.cards,
             cardEditState: initialCardEditState
@@ -77,7 +77,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
 
         return nextState;
 
-    } else if ( action.type == 'UPDATE_CARD_ERROR' ) {
+    } else if ( action.type == allCardsActions.EDIT_CARD_FAILED_VALIDATION ) {
 
         // record the errors in the edit state
 
@@ -94,7 +94,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
             } 
         }
 
-    } else if ( action.type == 'CARD_UPDATE_CARD_NOT_FOUND' ) {
+    } else if ( action.type == allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ) {
 
         let card = action.payload;
 
@@ -109,7 +109,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
         }
         return { ...state,  cardEditState: editState };
 
-    } else if ( action.type == 'CANCEL_EDIT_CARD_IN_CARD_LIST' ) {  
+    } else if ( action.type == allCardsActions.EDIT_CARD_CANCELED ) {  
 
         return { ...state, cardEditState: initialCardEditState };
 

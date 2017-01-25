@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { bannerReducer } from './views/layout/banner-reducer';
-import { securityReducer } from './views/layout/security-reducer';
+import { securityReducer } from './services/security-reducer';
 
 import { allCardsAddCardReducer } from  './views/all-cards/add-card-reducer';
 import { allCardsCardListReducer } from './views/all-cards/card-list-reducer';

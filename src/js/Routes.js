@@ -2,7 +2,7 @@ import React from 'react'
 import { Router, Route, browserHistory } from 'react-router'
 import { connect } from 'react-redux';
 
-import { authenticated } from './views/layout/security-actions';
+import { authenticated } from './services/security-actions';
 
 import Layout from './views/layout/layout';
 import AboutView from './views/about/about-view';

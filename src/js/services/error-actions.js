@@ -1,27 +1,28 @@
 import { logout } from './security-actions';
+import { errorActions } from './error-action-types';
 
 export function authenticationError() {
     return ( dispatch ) => {
         dispatch( logout() );
-        dispatch( { type: 'UNAUTHORISED_ERROR' } );
+        dispatch( { type: errorAction.UNAUTHORISED_ERROR } );
     }
 }
 
 export function internalServerError( errorId ) {
 
-    return { type: 'INTERNAL_SERVER_ERROR', payload: errorId }
+    return { type: errorAction.INTERNAL_SERVER_ERROR, payload: errorId }
 }
 
 export function unknownError( ) {
 
     // improve: this should really accept the error and log it.
     
-    return { type: 'UNKNOWN_ERROR' }
+    return { type: errorAction.UNKNOWN_ERROR }
 }
 
 export function permissionError() {
 
-    return { type: 'PERMISSION_ERROR' }
+    return { type: errorAction.PERMISSION_ERROR }
 }
 
 
@@ -48,8 +49,6 @@ export function createValidationPayloadFromResponse( response, fields ) {
   }
 
   var result = {};
-
-  console.log( fields );
 
   for ( var i=0; i < fields.length; i++ ) {
     result[ fields[ i ]] = getErrorMessages( getField( fields[ i ], response.data ) );

@@ -1,27 +1,29 @@
 import axios from 'axios';
-
+import { cards_url, card_url } from '../../services/configuration';
 import { getIdToken, hasIdToken } from '../../services/authentication-store';
-import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from '../layout/error-actions';
+import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from '../../services/error-actions';
+import { allCardsActions } from './all-cards-action-types';
+
 
 export function addCard( card ) {
   return ( dispatch ) => {
 
-    dispatch(  { type: "ADD_CARD_SUBMITTED", payload: card } );
+    dispatch(  { type: allCardsActions.ADD_CARD_BEFORE_SUBMIT, payload: card } );
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
     };
 
     axios
-      .post( 'https://cardspace-api-dev.herokuapp.com/v1/cards', card, config )
-      .then( response => dispatch( { type: 'CARD_CREATED' } ) )
+      .post( cards_url, card, config )
+      .then( response => dispatch( { type: allCardsActions.ADD_CARD_SUCCEEDED } ) )
       .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
         var responseStatus = getStatusCodeFromResponse( error.response );
 
         if ( responseStatus == 400 ) {
-          dispatch( createCardValidationErrorFromResponse( error.response, 'ADD_CARD_ERROR' ) );
+          dispatch( createCardValidationErrorFromResponse( error.response, allCardsActions.ADD_CARD_FAILED_VALIDATION ) );
 
         } else if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
@@ -40,34 +42,34 @@ export function addCard( card ) {
 
 export function editCardInCardList( cardId ) {
 
-    return { type: 'EDIT_CARD_IN_CARD_LIST', payload: cardId }
+    return { type: allCardsActions.EDIT_CARD, payload: cardId }
 
 }
 
 export function cancelEditCardInCardList( cardId ) {
 
-    return { type: 'CANCEL_EDIT_CARD_IN_CARD_LIST', payload: cardId }
+    return { type: allCardsActions.EDIT_CARD_CANCELED, payload: cardId }
 }
 
 export function updateCard( card ) {
   return ( dispatch ) => {
 
-    dispatch(  { type: "UPDATE_CARD_SUBMITTED", payload: card } );
+    dispatch(  { type: allCardsActions.EDIT_CARD_BEFORE_SUBMIT, payload: card } );
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
     };
 
     axios
-      .put( `https://cardspace-api-dev.herokuapp.com/v1/card/${card.id}`, card, config )
-      .then( response => dispatch( { type: 'CARD_UPDATED' } ) )
+      .put( `${card_url}/${card.id}`, card, config )
+      .then( response => dispatch( { type: allCardsActions.EDIT_CARD_SUCCEEDED } ) )
       .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
         var responseStatus = getStatusCodeFromResponse( error.response );
 
         if ( responseStatus == 400 ) {
-          dispatch( createCardValidationErrorFromResponse( error.response, 'UPDATE_CARD_ERROR' ) );
+          dispatch( createCardValidationErrorFromResponse( error.response, allCardsActions.EDIT_CARD_FAILED_VALIDATION ) );
 
         } else if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
@@ -76,7 +78,7 @@ export function updateCard( card ) {
           dispatch( permissionError() );
 
         } else if ( responseStatus == 404 ) {
-          dispatch( { type: 'CARD_UPDATE_CARD_NOT_FOUND', payload: card } )
+          dispatch( { type: allCardsActions.EDIT_CARD_FAILED_NOT_FOUND, payload: card } )
 
         } else {
           dispatch( unknownError() );
@@ -94,7 +96,7 @@ export function deleteCard( cardId ) {
   // is considered that the card has been deleted.
   const cardDeleted = ( cardId ) => {
     return ( dispatch ) => {
-      dispatch( { type: 'CARD_DELETED', payload: cardId } );
+      dispatch( { type: allCardsActions.DELETE_CARD_SUCCEEDED, payload: cardId } );
       dispatch( loadAllCardsForCurrentUser() );
     }
   }
@@ -102,14 +104,14 @@ export function deleteCard( cardId ) {
 
   return ( dispatch ) => {
 
-    dispatch(  { type: "DELETE_CARD_SUBMITTED", payload: cardId } );
+    dispatch(  { type: allCardsActions.DELETE_CARD_BEFORE_SUBMIT, payload: cardId } );
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
     };
 
     axios
-      .delete( `https://cardspace-api-dev.herokuapp.com/v1/card/${cardId}`, config )
+      .delete( `${card_url}/${cardId}`, config )
       .then( response => dispatch( cardDeleted( cardId ) ) )
       .catch( error => { 
 
@@ -147,8 +149,8 @@ export function loadAllCardsForCurrentUser () {
     };
 
     axios
-      .get( 'https://cardspace-api-dev.herokuapp.com/v1/cards', config )
-      .then( response => dispatch( { type: 'CARDS_FETCHED', payload: response.data  } ) )
+      .get( cards_url, config )
+      .then( response => dispatch( { type: allCardsActions.CARDS_FETCHED, payload: response.data  } ) )
       .catch( error => { 
 
         var responseStatus = getStatusCodeFromResponse( error.response );
