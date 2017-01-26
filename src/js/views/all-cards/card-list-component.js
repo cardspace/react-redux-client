@@ -5,8 +5,11 @@ export default class CardList extends React.Component {
     constructor( props ) {
         super( props );
 
-        console.log( props );
         this.props.loadCards();
+    }
+
+    componentWillUpdate( nextProps, nextState ) {
+        console.log( 'CardList - componentWillUpdate' );
     }
 
 
@@ -40,29 +43,30 @@ export default class CardList extends React.Component {
             )
         }
 
-        const representation = () => {
+        return cardIsBeingEdited()
+                ? cardEditor()
+                : cardDetails();
 
-            return cardIsBeingEdited()
-                 ? cardEditor()
-                 : cardDetails();
-        } 
-
-
-        return(
-            <li key={ card.id }>{ representation() }</li>        
-        ) 
     }
 
     render(){
+        console.log( 'CardList - render' );
+        
+
         return(
-            <ul>
+            <div class='cardlist'>
                 { this.props.cardListState.cards.map( card => this.createLineItem( card )  ) }
-            </ul>
+            </div>
         );
     }
 }
 
 class CardDetails extends React.Component {
+
+    componentWillUpdate( nextProps, nextState ) {
+        console.log( 'CardDetails - componentWillUpdate' );
+    }
+
 
     render() {
         const id = this.props.card.id;
@@ -72,13 +76,16 @@ class CardDetails extends React.Component {
         const deleteCard = this.props.deleteCard.bind( this, id );
         const editCard = this.props.editCard;
 
+        console.log(  'CardDetails - render', description );
         return(
-            <div>
-                <div onDoubleClick={ this.props.editCard }>
-                    <p>{ title }</p>
-                    <p>{ description }</p>
+            <div class='card card-readonly' onDoubleClick={ this.props.editCard }>
+                <div >
+                    <h2 class='card-title'>{ this.props.card.title }</h2>
+                    <textarea readOnly class='card-text' value={ this.props.card.description }></textarea>
                 </div>
-                <button onClick={ deleteCard }>delete</button>
+                <div class='card-action-bar'>
+                    <button class='card-button' onClick={ deleteCard }>Delete</button>
+                </div>
             </div>
         )
     }
@@ -130,9 +137,9 @@ class CardEditor extends React.Component {
 
     render() {
         return(
-            <form onSubmit={ this.onSubmit.bind( this ) }>
-                <label for='title'>Title:</label>
-                <input 
+            <form class='card card-editor' onSubmit={ this.onSubmit.bind( this ) }>
+                <input
+                    class='card-title'
                     type='text' 
                     name='title' 
                     id='title'
@@ -145,15 +152,15 @@ class CardEditor extends React.Component {
                    })}
                 </ul>
 
-
-                <label for='description'>Description:</label>
-                <input 
-                    type='text' 
-                    name='description' 
-                    id='description' 
-                    value={ this.state.description.value }                    
+                <textarea 
+                    class='card-text'
+                    name="description" 
+                    id="description"
+                    wrap="soft"
                     onChange={ this.descriptionChanged.bind( this ) }
-                />
+                    value={ this.state.description.value }
+                    >
+                </textarea>
                 <ul>
                   { this.props.cardEditState.data.description.error.map( ( error ) => {
                      return <li>{error}</li>;
@@ -161,23 +168,10 @@ class CardEditor extends React.Component {
                 </ul>
 
 
-                <label for='url'>Url:</label>
-                <input 
-                    type='text' 
-                    name='url' 
-                    id='url' 
-                    value={ this.state.url.value }
-                    onChange={ this.urlChanged.bind( this ) }
-                />
-                <ul>
-                  { this.props.cardEditState.data.url.error.map( ( error ) => {
-                     return <li>{error}</li>;
-                   })}
-                </ul>
-
-
-                <input type="submit" value="Submit" />
-                <button type="button" onClick= { this.props.cancelEdit.bind( this, this.state.id ) } >Cancel</button>
+                <div class='card-action-bar' >
+                    <input class='card-button' type="submit" value="Submit" />
+                    <button class='card-button' type="button" onClick= { this.props.cancelEdit.bind( this, this.state.id ) } >Cancel</button>
+                </div>
             </form>
         )
     }

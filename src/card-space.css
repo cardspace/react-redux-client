@@ -1,0 +1,113 @@
+/*
+  1. Generic classes (body, a, p, h1, etc.)
+  2. Card general
+  3. Card readonly
+  4. Card editable
+
+
+Focused button colour: #e1e1e1
+
+*/
+
+
+/**** 1. Generic classes (body, a, p, h1, etc.) *****/
+
+.card input[type="text"], .card textarea, .card input[type="text"]:focus, .card textarea:focus 
+{
+  border: none !important;
+  outline: 0 none;
+}
+
+
+/**** 2. Card general ****/
+
+.cardlist {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.cardlist .card {
+    margin: 10px 0 0 0;
+}
+
+.card {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: #fafafa;
+    height: 230px;
+    width: 345px;
+ }
+
+.card-title {
+    font-size: 24px;
+    margin: 5px 0 0 5px;
+    text-overflow: ellips;
+}
+
+.card-text {
+    font-size: 24px;
+    height: 120px;
+    margin: 5px 0 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
+.card-action-bar {
+    height: 50px;
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+}
+
+.card-button {
+    background-color: #fafafa;
+    border: none;
+    display: inline-block;
+    font-size: 24px;
+    line-height: 45px;
+    height: 50px;
+}
+
+.card-button:focus { 
+    background-color: #e1e1e1;
+    outline: none;
+}
+
+.card-button:hover {
+    background-color: #e1e1e1;
+}
+
+/**** 2. Card readonly ****/
+.card-readonly textarea {
+  background-color: #fafafa;
+  border: none !important;
+  outline: 0 none;
+  resize: none;
+  width: 331px;  /* Based on a card being 345px wide */
+   
+}
+
+
+/**** 3. Card editable ****/
+.card-editor input[type="text"], .card-editor textarea {
+  border: none !important;
+  outline: 0 none;
+}
+
+
+.card-editor input[type="text"] {
+  width: 334px;  /* Based on a card being 345px wide */
+}
+
+.card-editor textarea {
+  resize: none;
+  width: 331px;  /* Based on a card being 345px wide */
+}

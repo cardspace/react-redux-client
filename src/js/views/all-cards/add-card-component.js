@@ -44,32 +44,41 @@ export default class AddCard extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.onSubmit.bind( this )}>
-                <label for='title'>Tiltle:</label>
-                <input type='text' name='title' id='title' value={this.state.title.value} onChange={this.titleChanged.bind( this )}/>
+            <form class='card card-editor' onSubmit={this.onSubmit.bind( this )}>
+              
+              
+                <input 
+                    class='card-title'
+                    type='text' 
+                    name='title' 
+                    id='title' 
+                    value={ this.state.title.value } 
+                    onChange={ this.titleChanged.bind( this ) }
+                />
                 <ul>
-                  {this.props.addCardState.data.title.error.map( ( error ) => {
+                  { this.props.addCardState.data.title.error.map( ( error ) => {
                      return <li>{error}</li>;
                    })}
                 </ul>
 
-                <label for='description'>Description:</label>
-                <input type='text' name='description' id='description' value={this.state.description.value} onChange={this.descriptionChanged.bind( this )}/>
+                <textarea 
+                    class='card-text'
+                    name="description" 
+                    id="description"
+                    wrap="soft"
+                    onChange={ this.descriptionChanged.bind( this ) }
+                    value={ this.state.description.value }
+                >
+                </textarea>
                 <ul>
                   {this.props.addCardState.data.description.error.map( ( error ) => {
                      return <li>{error}</li>;
                    })}
                 </ul>
 
-                <label for='url'>Url:</label>
-                <input type='text' name='url' id='url' value={this.state.url.value} onChange={this.urlChanged.bind( this )}/>
-                <ul>
-                  {this.props.addCardState.data.url.error.map( ( error ) => {
-                     return <li>{error}</li>;
-                   })}
-                </ul>
-
-                <input type="submit" value="Submit" />
+                <div class='card-action-bar' >
+                    <input class='card-button' type="submit" value="Submit" />
+                </div>
             </form>
         );
     }
