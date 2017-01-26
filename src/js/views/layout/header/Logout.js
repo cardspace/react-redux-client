@@ -3,6 +3,6 @@ import React from 'react';
 export default class Logout extends React.Component {
 
     render() {
-        return <button onClick={this.props.logout} >Logout</button>
+        return <div class="header-user-authentication card-button" onClick={ this.props.logout } >Logout</div>
     }
 }

@@ -19,9 +19,8 @@ import { connect } from 'react-redux';
 
 import { displayLoginForm, logout } from '../../services/security-actions'
 
-import Login from './header/Login';
-import Logout from './header/Logout';
-import Title from './header/Title';
+import Site from './header/Site';
+import User from './header/User';
 
 const mapStateToProps = ( state ) => {
   return {
@@ -42,19 +41,17 @@ class Header extends React.Component {
 
   render() {
 
-    let button = null;
-    if ( !this.props.isLoggedIn ) {
-      button = <Login login={ this.props.login.bind( this ) } />;
-    } else {
-      button = <Logout logout={ this.props.logout.bind( this ) } />;
-    }
-
     return (
-      <div>
-        <Title />
-        {button}
-      </div>
+      <header class='header'>
+        <Site />
+        <User 
+          isLoggedIn={ this.props.isLoggedIn } 
+          login={ this.props.login.bind( this ) }
+          logout={ this.props.logout.bind( this ) }          
+        />
+      </header>
     );
+
   }
 
 }

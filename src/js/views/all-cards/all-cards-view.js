@@ -31,7 +31,7 @@ class AllCardsView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class='view'>
         <AddCard 
             addCardState={ this.props.addCardState }  
             addCard={ this.props.submitAddCard.bind( this ) }

@@ -1,16 +1,26 @@
 /*
-  1. Generic classes (body, a, p, h1, etc.)
-  2. Card general
-  3. Card readonly
-  4. Card editable
+  - Generic classes (body, a, p, h1, etc.)
+  - header
+  - Card general
+  - Card readonly
+  - Card editable
 
 
 Focused button colour: #e1e1e1
 
 */
 
+/**** - Resets *****/
 
-/**** 1. Generic classes (body, a, p, h1, etc.) *****/
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/**** - Generic classes (body, a, p, h1, etc.) *****/
 
 .card input[type="text"], .card textarea, .card input[type="text"]:focus, .card textarea:focus 
 {
@@ -18,8 +28,46 @@ Focused button colour: #e1e1e1
   outline: 0 none;
 }
 
+/**** - view ****/
 
-/**** 2. Card general ****/
+.view{
+  margin: 10px 0 0 10px;
+}
+
+/**** - header ****/
+
+.header {
+  background-color: #fafafa;
+  padding-left: 1em;
+  padding-right: 1em;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  margin: 0 auto;
+}
+
+.header-site {
+  margin-left: 0;
+}
+
+.header-site-title {
+  color: black;
+  font-size: 24px;
+  line-height: 45px;
+  text-decoration: none;
+}
+
+.header-site, .header-user {
+  display: inline-block;
+}
+
+.header-user {
+  float: right;
+  max-height: none;
+  overflow: hidden;
+}
+
+/**** - Card general ****/
 
 .cardlist {
     padding: 0;
@@ -73,6 +121,7 @@ Focused button colour: #e1e1e1
     display: inline-block;
     font-size: 24px;
     line-height: 45px;
+    margin: 0 0 0 5px;
     height: 50px;
 }
 
@@ -83,6 +132,7 @@ Focused button colour: #e1e1e1
 
 .card-button:hover {
     background-color: #e1e1e1;
+    cursor: pointer; cursor: hand;     
 }
 
 /**** 2. Card readonly ****/
@@ -109,5 +159,5 @@ Focused button colour: #e1e1e1
 
 .card-editor textarea {
   resize: none;
-  width: 331px;  /* Based on a card being 345px wide */
+  width: 334px;  /* Based on a card being 345px wide */
 }
