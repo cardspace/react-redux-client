@@ -70,8 +70,22 @@ export function allCardsCardListReducer( state=initialState, action ) {
         }
 
     } else if ( action.type == allCardsActions.EDIT_CARD_SUCCEEDED ) {
+
+        const getCard = ( card ) => {
+            return card.id != action.payload.id 
+                 ? card
+                 : { ...action.payload }
+        }
+
+        var cards = [];
+            cards.length = state.cards.length;
+
+        state
+          .cards
+          .forEach( card => cards.push( getCard( card ) ) );
+        
         const nextState = {
-            cards: state.cards,
+            cards: cards,
             cardEditState: initialCardEditState
         }
 

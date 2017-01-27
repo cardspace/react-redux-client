@@ -62,7 +62,7 @@ export function updateCard( card ) {
 
     axios
       .put( `${card_url}/${card.id}`, card, config )
-      .then( response => dispatch( { type: allCardsActions.EDIT_CARD_SUCCEEDED } ) )
+      .then( response => dispatch( { type: allCardsActions.EDIT_CARD_SUCCEEDED, payload: card } ) )
       .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
