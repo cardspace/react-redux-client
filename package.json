@@ -26,8 +26,21 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "webpack-dev-server --content-base src --inline --hot",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    
+    "dev-clean": "rm -f src/dist/dev/*",
+    "dev-static": "cp src/index.html src/dist/dev && cp src/card-space.css src/dist/dev",
+    "dev-js": "webpack --config webpack.config.dev.js",
+    "dev-build": "npm run dev-clean && npm run dev-static && npm run dev-js",
+    "dev-server": "webpack-dev-server --content-base src/dist/dev --inline --hot --config webpack.config.dev.js",
+    "dev": "npm run dev-build && npm run dev-server",    
+
+    "stage-clean": "rm -f src/dist/stage/*",
+    "stage-static": "cp src/index.html src/dist/stage && cp src/card-space.css src/dist/stage",
+    "stage-js": "webpack --config webpack.config.stage.js",
+    "stage-build": "npm run stage-clean && npm run stage-static && npm run stage-js", 
+    "stage-server": "webpack-dev-server --content-base src/dist/stage --inline --hot --config webpack.config.stage.js",
+    "stage": "npm run stage-build && npm run stage-server"
+
   },
   "author": "",
   "license": "ISC"

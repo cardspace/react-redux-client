@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { cards_url, card_url } from '../../services/configuration';
+import { cards_url, card_url } from 'config';
 import { getIdToken, hasIdToken } from '../../services/authentication-store';
 import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from '../../services/error-actions';
 import { allCardsActions } from './all-cards-action-types';
