@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { authenticated } from './services/security-actions';
 
 import Layout from './views/layout/layout';
-import AboutView from './views/about/about-view';
-import AllCardsView from './views/all-cards/all-cards-view';
+import LandingView from './views/landing/landing-view';
 
 const mapStateToProps = ( state ) => {
   return {
@@ -20,13 +19,8 @@ const mapDispatchToProps = ( dispatch ) => {
     authenticated: function( nextState, replace ) {
       dispatch( authenticated( nextState.location.hash.replace( '#id_token=', '' ) ) );
       replace( '/' );
-    },
-
-    requiresAuthentication: function ( nextState, replace ) {
-      if ( !this.props.isLoggedIn ) {
-        replace( '/' )
-      }
     }
+
   }  
 }
 
@@ -35,12 +29,10 @@ class Routes extends React.Component {
   render() {
 
     return (
-      <Router history={browserHistory}>
-        <Route component={Layout}>
-            <Route path='/' component={ AboutView } />
-            <Route path='/about' component={ AboutView } onEnter={ this.props.requiresAuthentication.bind( this ) } />
-            <Route path='/cards' component={ AllCardsView } onEnter={ this.props.requiresAuthentication.bind( this ) } />
-            <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } component={ AboutView } />
+      <Router history={ browserHistory }>
+        <Route component={ Layout }>
+            <Route path='/' component={ LandingView } />
+            <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } />
         </Route>
       </Router>
     );
