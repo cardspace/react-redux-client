@@ -14,8 +14,7 @@ const initialState = {
     state: editState.editing,
     data: {
         title: emptyValue,
-        description: emptyValue,
-        url: emptyValue
+        text: emptyValue
     }
 }
 
@@ -25,13 +24,13 @@ export function allCardsAddCardReducer( state=initialState, action ) {
 
     if ( action.type == allCardsActions.ADD_CARD_BEFORE_SUBMIT ) {
 
+
         return {  
             ...state,
             state: editState.submitted,
             data: {   
                 title: { ...state.data.title, value: action.payload.title },
-                description: { ...state.data.description, value: action.payload.description },
-                url: { ...state.data.url, value: action.payload.url } 
+                text: { ...state.data.text, value: action.payload.text }
             }
         };
 
@@ -44,8 +43,7 @@ export function allCardsAddCardReducer( state=initialState, action ) {
             ...state,
             data:{ 
                 title: { ...state.data.title, error: action.payload.title || [] },
-                description: { ...state.data.description, error: action.payload.description || [] },
-                url: { ...state.data.url, error: action.payload.desription || [] }
+                text: { ...state.data.text, error: action.payload.text || [] }
             }        
         }
 

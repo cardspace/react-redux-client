@@ -57,21 +57,15 @@ export default class CardList extends React.Component {
 class CardDetails extends React.Component {
 
     render() {
-        const id = this.props.card.id;
-        const title = this.props.card.title;
-        const description = this.props.card.description;
-
-        const deleteCard = this.props.deleteCard.bind( this, id );
-        const editCard = this.props.editCard;
 
         return(
             <div class='card card-readonly' onDoubleClick={ this.props.editCard }>
                 <div >
                     <h2 class='card-title'>{ this.props.card.title }</h2>
-                    <textarea readOnly class='card-text' value={ this.props.card.description }></textarea>
+                    <textarea readOnly class='card-text' value={ this.props.card.text }></textarea>
                 </div>
                 <div class='card-action-bar'>
-                    <button class='card-button' onClick={ deleteCard }>Delete</button>
+                    <button class='card-button' onClick={ this.props.deleteCard.bind( this, this.props.card.id ) }>Delete</button>
                 </div>
             </div>
         )
@@ -109,8 +103,7 @@ class CardEditor extends React.Component {
         return {
             id: this.state.id,
             title: this.state.title.value,
-            description: this.state.description.value,
-            url: this.state.url.value
+            text: this.state.text.value,
         }
     }
 
@@ -119,12 +112,8 @@ class CardEditor extends React.Component {
         this.setState( { ...this.state, title: { ...this.state.title, value: event.target.value } });
     }
 
-    descriptionChanged( event ) {
-        this.setState( { ...this.state, description: { ...this.state.description, value: event.target.value }} );
-    }
-
-    urlChanged( event ) {
-        this.setState( { ...this.state, url: { ...this.state.url, value: event.target.value }} );
+    textChanged( event ) {
+        this.setState( { ...this.state, text: { ...this.state.text, value: event.target.value }} );
     }
 
 
@@ -142,9 +131,9 @@ class CardEditor extends React.Component {
 
                 <TextAreaInput
                     fieldClass='card-text'
-                    hasErrors={ this.state.description.error.length > 0 }
-                    value={ this.state.description.value }
-                    onChange={ this.descriptionChanged.bind( this ) }
+                    hasErrors={ this.state.text.error.length > 0 }
+                    value={ this.state.text.value }
+                    onChange={ this.textChanged.bind( this ) }
                 />
 
                 <div class='card-action-bar' >

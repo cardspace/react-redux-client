@@ -15,8 +15,7 @@ const initialCardEditState = {
     data: {
         id : '',
         title: emptyValue,
-        description: emptyValue,
-        url: emptyValue
+        text: emptyValue
     }
 }
 
@@ -41,8 +40,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
                 data: {
                     id: card.id,
                     title: createFieldValue( card.title ),
-                    description: createFieldValue( card.description ),
-                    url: createFieldValue( card.url )
+                    text: createFieldValue( card.text )
                 }
             }
             return { ...state,  cardEditState: editState };
@@ -63,8 +61,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
                 data: {
                     id: action.payload.id,
                     title: createFieldValue( action.payload.title ),
-                    description: createFieldValue( action.payload.description ),
-                    url: createFieldValue( action.payload.url )
+                    text: createFieldValue( action.payload.text )
                 }
             }
         }
@@ -77,6 +74,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
                  : { ...action.payload }
         }
 
+        /* Update the card in the card list to reflect the edit */
         var cards = [];
             cards.length = state.cards.length;
 
@@ -102,8 +100,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
                 data: {
                   id: state.cardEditState.data.id,
                   title: { ...state.cardEditState.title, error: action.payload.title || []  },
-                  description: { ...state.cardEditState.description, error: action.payload.description || []  },
-                  url: { ...state.cardEditState.url, error: action.payload.url || []  },
+                  text: { ...state.cardEditState.text , error: action.payload.text || []  }
                 }
             } 
         }
@@ -117,8 +114,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
             data: {
                 id: card.id,
                 title: createFieldValue( card.title ),
-                description: createFieldValue( card.description ),
-                url: createFieldValue( card.url )
+                text: createFieldValue( card.text )
             }
         }
         return { ...state,  cardEditState: editState };

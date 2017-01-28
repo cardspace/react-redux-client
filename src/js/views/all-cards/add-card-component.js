@@ -22,8 +22,7 @@ export default class AddCard extends React.Component {
 
         return {
             title: this.state.title.value,
-            description: this.state.description.value,
-            url: this.state.url.value
+            text: this.state.text.value
         }
     }
 
@@ -36,12 +35,8 @@ export default class AddCard extends React.Component {
         this.setState( { ...this.state, title: { ...this.state.title, value: event.target.value } });
     }
 
-    descriptionChanged( event ) {
-        this.setState( { ...this.state, description: { ...this.state.description, value: event.target.value }} );
-    }
-
-    urlChanged( event ) {
-        this.setState( { ...this.state, url: { ...this.state.url, value: event.target.value }} );
+    textChanged( event ) {
+        this.setState( { ...this.state, text: { ...this.state.text, value: event.target.value }} );
     }
 
     getErrorClass( errors ) {
@@ -64,9 +59,9 @@ export default class AddCard extends React.Component {
 
                 <TextAreaInput
                     fieldClass='card-text'
-                    hasErrors={ this.state.description.error.length > 0 }
-                    value={ this.state.description.value }
-                    onChange={ this.descriptionChanged }
+                    hasErrors={ this.state.text.error.length > 0 }
+                    value={ this.state.text.value }
+                    onChange={ this.textChanged.bind( this ) }
                 />
 
                 <div class='card-action-bar' >
