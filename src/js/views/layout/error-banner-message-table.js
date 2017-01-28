@@ -4,19 +4,23 @@ import { errorActions } from '../../services/error-action-types';
 
 function errorMessage( ) { return this; }
 
-const unauthorisedError = errorMessage.bind( 'Authentication failed when applying the last action.' );
-const internalServerError = ( action ) => { return `Internal server error id : [${action.id}]`; }
-const unknownError = errorMessage.bind( 'An unanticipated error occured while executing the last action' );
-const permissionError = errorMessage.bind( 'You were not authorised to apply the last action.' );
-const allCardsEditCardFailedNotFound = errorMessage.bind( allCardsErrorMessages.EDIT_CARD_FAILED_NOT_FOUND );
-
 
 var errorMessages = {}
 
-errorMessages[ errorActions.UNAUTHORISED_ERROR ] = unauthorisedError;
-errorMessages[ errorActions.INTERNAL_SERVER_ERROR ] = internalServerError;
-errorMessages[ errorActions.UNKNOWN_ERROR ] = unknownError;
-errorMessages[ errorActions.PERMISSION_ERROR ] = permissionError;
-errorMessages[ allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ] = allCardsEditCardFailedNotFound;
+errorMessages[ errorActions.UNAUTHORISED_ERROR ] 
+    = errorMessage.bind( 'Authentication failed when applying the last action.' );
+
+errorMessages[ errorActions.INTERNAL_SERVER_ERROR ] 
+    = ( action ) => { return `Internal server error id : [${action.id}]`; }
+
+errorMessages[ errorActions.UNKNOWN_ERROR ] 
+    = errorMessage.bind( 'An unanticipated error occured while executing the last action' );
+
+errorMessages[ errorActions.PERMISSION_ERROR ] 
+    = errorMessage.bind( 'You were not authorised to apply the last action.' );
+
+errorMessages[ allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ] 
+    = errorMessage.bind( allCardsErrorMessages.EDIT_CARD_FAILED_NOT_FOUND );
+
 
 export const errorMessageTable = errorMessages;
