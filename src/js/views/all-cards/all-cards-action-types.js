@@ -6,6 +6,7 @@
 //   * unknown 
 
 export const allCardsActions = {
+  ADD_CARD_CANCEL : 'allCards.ADD_CARD_CANCEL', // When the user want to clear the add card form 
   ADD_CARD_BEFORE_SUBMIT : 'allCards.ADD_CARD_BEFORE_SUBMIT',   // Before submitting the new card to the server
   ADD_CARD_SUCCEEDED : 'allCards.ADD_CARD_SUCCEEDED',   // If the card is succesfully created.
   ADD_CARD_FAILED_VALIDATION : 'allCards.ADD_CARD_FAILED_VALIDATION', // Service reported and error when creating a card

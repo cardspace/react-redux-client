@@ -26,17 +26,17 @@ export default class AddCard extends React.Component {
         }
     }
 
-    onSubmit( event ) {
-        event.preventDefault();
-        this.props.addCard( this.convertStateToSubmitPayload ( this.state ) );
-    }
-
     titleChanged( event ) {
         this.setState( { ...this.state, title: { ...this.state.title, value: event.target.value } });
     }
 
     textChanged( event ) {
         this.setState( { ...this.state, text: { ...this.state.text, value: event.target.value }} );
+    }
+
+    onSubmit( event ) {
+        event.preventDefault();
+        this.props.addCard( this.convertStateToSubmitPayload ( this.state ) );
     }
 
     getErrorClass( errors ) {
@@ -66,6 +66,7 @@ export default class AddCard extends React.Component {
 
                 <div class='card-action-bar' >
                     <input class='card-button' type="submit" value="Add" />
+                    <button class='card-button' type="button" onClick={ this.props.cancel.bind( this ) } >Cancel</button>
                 </div>
             </form>
         );

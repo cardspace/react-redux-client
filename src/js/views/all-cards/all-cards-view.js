@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from './all-cards-actions';
+import { cancelAddCard, addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from './all-cards-actions';
 
 import AddCard from './add-card-component';
 import CardList from './card-list-component';
@@ -17,6 +17,7 @@ const mapStateToProps = ( state ) => {
 const mapDispatchToProps = ( dispatch ) => {
 
   return {
+    cancelAddCard: () => dispatch( cancelAddCard() ), 
     submitAddCard: ( card ) => dispatch( addCard( card ) ),
     loadCards: () => dispatch( loadAllCardsForCurrentUser() ),
     submitDeleteCard: ( cardId ) => dispatch( deleteCard( cardId ) ),
@@ -36,6 +37,7 @@ class AllCardsView extends React.Component {
         <div class='leftColumn'>
           <AddCard 
               addCardState={ this.props.addCardState }  
+              cancel={ this.props.cancelAddCard  }
               addCard={ this.props.submitAddCard.bind( this ) }
           />
         </div>

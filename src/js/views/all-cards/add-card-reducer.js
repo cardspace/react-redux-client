@@ -22,7 +22,10 @@ const initialState = {
 
 export function allCardsAddCardReducer( state=initialState, action ) {
 
-    if ( action.type == allCardsActions.ADD_CARD_BEFORE_SUBMIT ) {
+    if ( action.type == allCardsActions.ADD_CARD_CANCEL ) {
+        return { ...initialState }; // make sure it is a new object just set to the initial values
+    
+    } else if ( action.type == allCardsActions.ADD_CARD_BEFORE_SUBMIT ) {
 
 
         return {  
@@ -35,7 +38,7 @@ export function allCardsAddCardReducer( state=initialState, action ) {
         };
 
     } else if ( action.type == allCardsActions.ADD_CARD_SUCCEEDED ) {
-        return initialState;
+        return { ...initialState };
 
     } else if ( action.type == allCardsActions.ADD_CARD_FAILED_VALIDATION ) {
 

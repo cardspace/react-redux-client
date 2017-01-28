@@ -5,6 +5,11 @@ import { createValidationPayloadFromResponse, authenticationError, internalServe
 import { allCardsActions } from './all-cards-action-types';
 
 
+export function cancelAddCard( ) {
+
+  return { type: allCardsActions.ADD_CARD_CANCEL  }
+}
+
 export function addCard( card ) {
   return ( dispatch ) => {
 
