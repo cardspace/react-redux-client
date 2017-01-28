@@ -65,7 +65,7 @@ export default class AddCard extends React.Component {
                 />
 
                 <div class='card-action-bar' >
-                    <input class='card-button' type="submit" value="Submit" />
+                    <input class='card-button' type="submit" value="Add" />
                 </div>
             </form>
         );

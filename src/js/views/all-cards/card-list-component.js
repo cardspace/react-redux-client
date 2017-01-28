@@ -137,7 +137,7 @@ class CardEditor extends React.Component {
                 />
 
                 <div class='card-action-bar' >
-                    <input class='card-button' type="submit" value="Submit" />
+                    <input class='card-button' type="submit" value="Save" />
                     <button class='card-button' type="button" onClick= { this.props.cancelEdit.bind( this, this.state.id ) } >Cancel</button>
                 </div>
             </form>
