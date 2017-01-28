@@ -135,7 +135,8 @@ Focused button colour: #e1e1e1
     cursor: pointer; cursor: hand;     
 }
 
-/**** 2. Card readonly ****/
+
+/****  Card readonly ****/
 .card-readonly textarea {
   background-color: #fafafa;
   border: none !important;
@@ -146,7 +147,7 @@ Focused button colour: #e1e1e1
 }
 
 
-/**** 3. Card editable ****/
+/****  Card editable ****/
 .card-editor input[type="text"], .card-editor textarea {
   border: none !important;
   outline: 0 none;
@@ -160,4 +161,11 @@ Focused button colour: #e1e1e1
 .card-editor textarea {
   resize: none;
   width: 334px;  /* Based on a card being 345px wide */
+}
+
+
+/**** Errors ****/
+
+.text-field.has_an_error {
+  background-color: #f2dede;
 }

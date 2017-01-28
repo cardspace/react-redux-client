@@ -1,4 +1,5 @@
 import React from 'react';
+import { TextInput, TextAreaInput } from '../../controls/input-controls';
 
 export default class CardList extends React.Component {
 
@@ -7,11 +8,6 @@ export default class CardList extends React.Component {
 
         this.props.loadCards();
     }
-
-    componentWillUpdate( nextProps, nextState ) {
-        console.log( 'CardList - componentWillUpdate' );
-    }
-
 
     createLineItem ( card ) {
 
@@ -50,9 +46,6 @@ export default class CardList extends React.Component {
     }
 
     render(){
-        console.log( 'CardList - render' );
-        
-
         return(
             <div class='cardlist'>
                 { this.props.cardListState.cards.map( card => this.createLineItem( card )  ) }
@@ -63,11 +56,6 @@ export default class CardList extends React.Component {
 
 class CardDetails extends React.Component {
 
-    componentWillUpdate( nextProps, nextState ) {
-        console.log( 'CardDetails - componentWillUpdate' );
-    }
-
-
     render() {
         const id = this.props.card.id;
         const title = this.props.card.title;
@@ -76,7 +64,6 @@ class CardDetails extends React.Component {
         const deleteCard = this.props.deleteCard.bind( this, id );
         const editCard = this.props.editCard;
 
-        console.log(  'CardDetails - render', description );
         return(
             <div class='card card-readonly' onDoubleClick={ this.props.editCard }>
                 <div >
@@ -102,6 +89,13 @@ class CardEditor extends React.Component {
     getStateFromProps( props ) {
         return props.cardEditState.data;
     }
+
+
+    componentWillReceiveProps( nextProps ) {
+
+        this.setState( this.getStateFromProps( nextProps ) );
+    }
+
 
     onSubmit( event ) {
         event.preventDefault();
@@ -134,39 +128,24 @@ class CardEditor extends React.Component {
     }
 
 
-
     render() {
+
         return(
             <form class='card card-editor' onSubmit={ this.onSubmit.bind( this ) }>
-                <input
-                    class='card-title'
-                    type='text' 
-                    name='title' 
-                    id='title'
+
+                <TextInput 
+                    fieldClass='card-title'
+                    hasErrors={ this.state.title.error.length > 0 }
                     value={ this.state.title.value }
                     onChange={ this.titleChanged.bind( this ) }
                 />
-                <ul>
-                  { this.props.cardEditState.data.title.error.map( ( error ) => {
-                     return <li>{error}</li>;
-                   })}
-                </ul>
 
-                <textarea 
-                    class='card-text'
-                    name="description" 
-                    id="description"
-                    wrap="soft"
-                    onChange={ this.descriptionChanged.bind( this ) }
+                <TextAreaInput
+                    fieldClass='card-text'
+                    hasErrors={ this.state.description.error.length > 0 }
                     value={ this.state.description.value }
-                    >
-                </textarea>
-                <ul>
-                  { this.props.cardEditState.data.description.error.map( ( error ) => {
-                     return <li>{error}</li>;
-                   })}
-                </ul>
-
+                    onChange={ this.descriptionChanged.bind( this ) }
+                />
 
                 <div class='card-action-bar' >
                     <input class='card-button' type="submit" value="Submit" />
