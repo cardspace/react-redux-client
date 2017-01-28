@@ -32,18 +32,24 @@ class AllCardsView extends React.Component {
   render() {
     return (
       <div class='view'>
-        <AddCard 
-            addCardState={ this.props.addCardState }  
-            addCard={ this.props.submitAddCard.bind( this ) }
-        />
-        <CardList 
-            loadCards={ this.props.loadCards } 
-            deleteCard={ this.props.submitDeleteCard } 
-            editCardInList={ this.props.editCardInList }
-            updateCard={ this.props.updateCard }
-            cancelEdit={ this.props.cancelEdit }
-            cardListState={ this.props.cardListState }
-        />
+
+        <div class='leftColumn'>
+          <AddCard 
+              addCardState={ this.props.addCardState }  
+              addCard={ this.props.submitAddCard.bind( this ) }
+          />
+        </div>
+        
+        <div class='rightColumn'>
+          <CardList 
+              loadCards={ this.props.loadCards } 
+              deleteCard={ this.props.submitDeleteCard } 
+              editCardInList={ this.props.editCardInList }
+              updateCard={ this.props.updateCard }
+              cancelEdit={ this.props.cancelEdit }
+              cardListState={ this.props.cardListState }
+          />
+        </div>
       </div>
     );
   }

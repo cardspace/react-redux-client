@@ -1,13 +1,21 @@
 /*
   - Generic classes (body, a, p, h1, etc.)
   - header
+  - view
+  - layout
   - Card general
   - Card readonly
   - Card editable
 
+Properties:
+ - margin between columns: 10px
+ - Card width: 345px
+ - Card colour: #fafafa
+ - Focused button colour: #e1e1e1
 
-Focused button colour: #e1e1e1
 
+
+ref:  http://www.hexcolortool.com/#fafafa
 */
 
 /**** - Resets *****/
@@ -28,16 +36,11 @@ Focused button colour: #e1e1e1
   outline: 0 none;
 }
 
-/**** - view ****/
-
-.view {
-  margin: 10px 0 0 10px;
-}
-
-/**** - header ****/
+/**** - header
+*/
 
 .header {
-  background-color: #fafafa;
+  background-color: #fafafa; /* same colour as the cards */
   padding-left: 1em;
   padding-right: 1em;
   position: relative;
@@ -45,6 +48,7 @@ Focused button colour: #e1e1e1
   line-height: 50px;
   margin: 0 auto;
 }
+
 
 .header-site {
   margin-left: 0;
@@ -67,6 +71,47 @@ Focused button colour: #e1e1e1
   overflow: hidden;
 }
 
+/**** - view 
+
+   Is used to contain view specific components, it main responsibitlity is to 
+   provide vertical spacing between it and the header.  
+
+*/
+.view {
+  margin: 10px 0 0 0;
+}
+
+
+/*** - layout 
+
+  columns provide horizontal positioning and spacing
+*/
+
+.leftColumn {
+  margin: 0 10px 0 10px;
+}
+
+.rightColumn {
+  margin: 10px 10px 0 10px;
+}
+
+/* Use Two column layout when you can fit two cards on the screent
+  
+    Card width x2 + margin x2
+*/
+@media screen and ( min-width: 720px ) {
+
+  .leftColumn{
+    width: 345px; /* A card width */
+    float: left;
+  }
+
+  .rightColumn {
+    margin: 0 10px 0 365px;
+  }
+
+}
+
 /**** - Card general ****/
 
 .cardlist {
@@ -77,7 +122,8 @@ Focused button colour: #e1e1e1
 }
 
 .cardlist .card {
-    margin: 10px 0 0 0;
+    margin: 0 10px 10px 0;
+    float: left;
 }
 
 .card {
