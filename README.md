@@ -1,17 +1,23 @@
-## Instructions to run
-1. Navigate to folder */1-basic-react*
-2. *NPM install*
-3. *NPM run dev*
-4. Navigate to localhost:8080
 
-## Time stamps from [YouTube video](https://www.youtube.com/watch?v=MhkGQAoc7bc)
-* 0:50 Babel overview
-* 1:29 Webpack config 
-* 2:37 NPM install
-* 3:13 Looking at client.js & breaking down React
-* 5:45 Serving content from file
-* 6:18 Live reload w/ npm install -S webpack-dev-server
-* 7:10 webpack dev server --content-base src
-* 7:55 --Inline --hot (live reload)
-* 8:30 Creating a "dev" command in NPM
 
+## Build new environment.
+
+### Create infrastructure
+
+* (db) - create a mongodb database https://mlab.com/home
+* (auth) - create an authentication client https://manage.auth0.com/#/
+* (api) - create the service project https://dashboard.heroku.com/apps
+* (client) - create the client project https://console.firebase.google.com/
+
+### Deploy api
+
+* Add the environment setting to the service project
+* Add the service project as a git remote
+* Push the service to the service project remote
+
+### Deploy client
+
+* Configure the callback url in the authentication client
+* Create the environment configuration, wwebpack setting and npm commands for the environment
+* Create the firebase environment ( firebase use --add )
+* Deploy the application

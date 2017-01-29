@@ -26,22 +26,26 @@
   },
   "devDependencies": {},
   "scripts": {
-    
-    "dev-clean": "rm -f src/dist/dev/*",
-    "dev-static": "cp src/index.html src/dist/dev && cp src/card-space.css src/dist/dev",
+
+    "clean": "rm -rf src/dist/*",
+    "static": "cp src/index.html src/dist && cp src/card-space.css src/dist",
+
     "dev-js": "webpack --config webpack.config.dev.js",
-    "dev-build": "npm run dev-clean && npm run dev-static && npm run dev-js",
+    "dev-build": "npm run clean && npm run static && npm run dev-js",
     "dev-server": "webpack-dev-server --content-base src/dist/dev --inline --hot --config webpack.config.dev.js",
     "dev": "npm run dev-build && npm run dev-server",    
 
-    "stage-clean": "rm -f src/dist/stage/*",
-    "stage-static": "cp src/index.html src/dist/stage && cp src/card-space.css src/dist/stage",
     "stage-js": "webpack --config webpack.config.stage.js",
-    "stage-build": "npm run stage-clean && npm run stage-static && npm run stage-js", 
+    "stage-build": "npm run clean && npm run static && npm run stage-js", 
     "stage-server": "webpack-dev-server --content-base src/dist/stage --inline --hot --config webpack.config.stage.js",
-    "stage-deploy": "firebase deploy",
+    "stage-deploy": "firebase deploy -P default",
     "stage-release": "npm run stage-build && npm run stage-deploy",
-    "stage": "npm run stage-build && npm run stage-server"
+    "stage": "npm run stage-build && npm run stage-server",
+
+    "prod-js": "webpack --config webpack.config.prod.js",
+    "prod-build": "npm run clean && npm run static && npm run prod-js", 
+    "prod-deploy": "firebase deploy -P production",
+    "prod-release": "npm run prod-build && npm run prod-deploy"
 
   },
   "author": "",

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "cardspace-stage"
+    "default": "cardspace-stage",
+    "production": "cardspace-prod"
   }
 }

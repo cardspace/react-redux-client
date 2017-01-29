@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "public": "src/dist/stage",
+    "public": "src/dist",
     "rewrites": [
       {
         "source": "**",
