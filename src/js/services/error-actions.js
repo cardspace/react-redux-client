@@ -10,14 +10,14 @@ export function authenticationError() {
 
 export function internalServerError( errorId ) {
 
-    return { type: errorAction.INTERNAL_SERVER_ERROR, payload: errorId }
+    return { type: errorActions.INTERNAL_SERVER_ERROR, payload: errorId }
 }
 
 export function unknownError( ) {
 
     // improve: this should really accept the error and log it.
     
-    return { type: errorAction.UNKNOWN_ERROR }
+    return { type: errorActions.UNKNOWN_ERROR }
 }
 
 export function permissionError() {
