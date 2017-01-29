@@ -39,6 +39,8 @@
     "stage-js": "webpack --config webpack.config.stage.js",
     "stage-build": "npm run stage-clean && npm run stage-static && npm run stage-js", 
     "stage-server": "webpack-dev-server --content-base src/dist/stage --inline --hot --config webpack.config.stage.js",
+    "stage-deploy": "firebase deploy",
+    "stage-release": "npm run stage-build && npm run stage-deploy",
     "stage": "npm run stage-build && npm run stage-server"
 
   },
