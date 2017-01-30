@@ -8,9 +8,11 @@ import { cancelAddCard,
          loadAllCardsForCurrentUser, 
          deleteCard,
          completeCard,
-         activateCard } from './all-cards-actions';
+         activateCard,
+         changeFilter } from './all-cards-actions';
 
 import AddCard from './add-card-component';
+import CardListFilter from './card-list-filter-component';
 import CardList from './card-list-component';
 
 const mapStateToProps = ( state ) => {
@@ -33,7 +35,8 @@ const mapDispatchToProps = ( dispatch ) => {
     updateCard: ( card ) => dispatch( updateCard( card ) ),
     cancelEdit: ( cardId ) => dispatch( cancelEditCardInCardList( cardId ) ),
     markCardAsComplete: ( cardId ) => dispatch( completeCard( cardId ) ),
-    markCardAsActive: ( cardId ) => dispatch( activateCard( cardId ) )
+    markCardAsActive: ( cardId ) => dispatch( activateCard( cardId ) ),
+    changeFilter: ( filter ) => dispatch( changeFilter( filter ) )
   }
 
 }
@@ -50,9 +53,14 @@ class AllCardsView extends React.Component {
               cancel={ this.props.cancelAddCard  }
               addCard={ this.props.submitAddCard.bind( this ) }
           />
+          <CardListFilter
+            filterState={ this.props.cardListState.filterState } 
+            changeFilter={ this.props.changeFilter  }
+          />
         </div>
         
         <div class='rightColumn'>
+  
           <CardList 
               loadCards={ this.props.loadCards } 
               deleteCard={ this.props.submitDeleteCard } 

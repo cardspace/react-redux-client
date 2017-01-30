@@ -4,6 +4,7 @@
   - view
   - layout
   - Card general
+  - Card list
   - Card readonly
   - Card editable
 
@@ -110,6 +111,34 @@ ref:  http://www.hexcolortool.com/#fafafa
     margin: 0 10px 0 365px;
   }
 
+}
+
+
+/*** - Card list - ***/
+
+
+.card-list-filter {
+  background-color: #fafafa;
+  display: block;
+  height: 40px;
+  margin: 5px 0 5px 0;
+  width: 345px;
+  
+}
+
+.card-list-filter-item {
+  font-size: 24px;
+  display: inline-block;
+  margin: 5px;
+  padding: 2px;
+  border: 1px solid #fafafa;
+  
+}
+
+.card-list-filter-item.selected,
+.card-list-filter-item:hover {
+   border: 1px solid rgba( 175, 47, 47, 0.2 );
+   cursor: pointer; cursor: hand;
 }
 
 /**** - Card general ****/

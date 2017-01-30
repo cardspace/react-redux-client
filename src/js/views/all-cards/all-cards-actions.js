@@ -5,17 +5,30 @@ import { createValidationPayloadFromResponse, authenticationError, internalServe
 import { allCardsActions } from './all-cards-action-types';
 
 
+export function changeFilter( filter ) {
+  console.log( 'changeFilter', filter )
+
+  return ( dispatch ) => {
+    dispatch( { type: allCardsActions.CARDS_FILTER_CHANGED, payload: filter  } );
+    dispatch( loadAllCardsForCurrentUser() );
+  }
+}
+
 
 export function loadAllCardsForCurrentUser () {
 
-  return ( dispatch ) => {
+  return ( dispatch, getState ) => {
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
     };
 
+    const { filterState } = getState().allCardsCardList;
+
+
+
     axios
-      .get( cards_url, config )
+      .get( `${cards_url}?status=${filterState}`, config )
       .then( response => dispatch( { type: allCardsActions.CARDS_FETCHED, payload: response.data  } ) )
       .catch( error => { 
 
@@ -244,6 +257,8 @@ export function activateCard( cardId ) {
       });
   }
 }
+
+
 
 const cardFieldNames = [ 'title', 'description', 'url' ];
 

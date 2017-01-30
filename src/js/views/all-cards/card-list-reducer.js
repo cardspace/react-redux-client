@@ -1,4 +1,5 @@
 import { allCardsActions } from './all-cards-action-types';
+import { cardFilters } from './card-filters';
 
 const editState = {
     editing: 'editing',
@@ -12,6 +13,7 @@ const emptyValue = {
 
 const initialCardEditState = {
     state: editState.editing,
+    
     data: {
         id : '',
         title: emptyValue,
@@ -20,13 +22,17 @@ const initialCardEditState = {
 }
 
 const initialState = {
+    filterState: cardFilters.all,    
     cards: [],
     cardEditState: initialCardEditState
 }
 
 export function allCardsCardListReducer( state=initialState, action ) {
 
-    if ( action.type == allCardsActions.CARDS_FETCHED ) {
+    if ( action.type == allCardsActions.CARDS_FILTER_CHANGED ) {
+        return { ...state, filterState: action.payload }
+
+    } else if ( action.type == allCardsActions.CARDS_FETCHED ) {
         return { ...state, cards: action.payload }
 
     } else if ( action.type == allCardsActions.EDIT_CARD ) {
@@ -74,20 +80,11 @@ export function allCardsCardListReducer( state=initialState, action ) {
                  : { ...action.payload }
         }
 
-        /* Update the card in the card list to reflect the edit */
-        var cards = [];
-            cards.length = state.cards.length;
-
-        state
-          .cards
-          .forEach( card => cards.push( getCard( card ) ) );
-        
-        const nextState = {
-            cards: cards,
-            cardEditState: initialCardEditState
+        return { 
+            ...state, 
+            cards: state.cards.map( getCard ), 
+            cardEditState: initialCardEditState 
         }
-
-        return nextState;
 
     } else if ( action.type == allCardsActions.EDIT_CARD_FAILED_VALIDATION ) {
 
@@ -131,7 +128,15 @@ export function allCardsCardListReducer( state=initialState, action ) {
                  : { ...card, status: 'complete' }
         }
 
-        /* Update the card in the card list to reflect the edit */
+        return { 
+            ...state, 
+            cards: state.cards.map( getCard ), 
+            cardEditState: initialCardEditState 
+        }
+
+
+
+        /* Update the card in the card list to reflect the edit * /
         var cards = [];
             cards.length = state.cards.length;
 
@@ -144,17 +149,24 @@ export function allCardsCardListReducer( state=initialState, action ) {
             cardEditState: initialCardEditState
         }
 
-        return nextState;
+        return nextState; */
 
     } else if ( action.type == allCardsActions.CARD_ACTIVATE_SUCCEEDED ) {
-        // todo: remove Dry violation the same logic is used in EDIT_CARD_SUCCEEDED
+
         const getCard = ( card ) => {
             return card.id != action.payload
                  ? card
                  : { ...card, status: 'active' }
         }
 
-        /* Update the card in the card list to reflect the edit */
+        return { 
+            ...state, 
+            cards: state.cards.map( getCard ), 
+            cardEditState: initialCardEditState 
+        }
+
+
+        /* Update the card in the card list to reflect the edit * /
         var cards = [];
             cards.length = state.cards.length;
 
@@ -168,6 +180,7 @@ export function allCardsCardListReducer( state=initialState, action ) {
         }
 
         return nextState;
+        */
 
     } else {
         return state;

@@ -16,6 +16,7 @@ export const allCardsActions = {
   CARD_COMPLETE_SUCCEEDED : 'allCards.CARD_COMPLETE_SUCCEEDED', // When complete card request was succefull
   CARD_COMPLETE_FAILED_NOT_FOUND : 'allCards.CARD_COMPLETE_FAILED_NOT_FOUND', // Service could not find the card to complete
 
+  CARDS_FILTER_CHANGED : 'allCards.CARDS_FILTER_CHANGED',
   CARDS_FETCHED : 'allCards.CARDS_FETCHED',
 
   DELETE_CARD_BEFORE_SUBMIT : 'allCards.DELETE_CARD_BEFORE_SUBMIT', // Before submitting the delete card request to the server
