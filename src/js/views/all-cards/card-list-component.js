@@ -25,6 +25,8 @@ export default class CardList extends React.Component {
                     card={ card } 
                     deleteCard={ this.props.deleteCard.bind( this, card.id )  } 
                     editCard={ this.props.editCardInList.bind( this, card.id ) }
+                    markCardAsComplete={ this.props.markCardAsComplete }
+                    markCardAsActive={ this.props.markCardAsActive }
                 />                
             )
         }
@@ -56,15 +58,57 @@ export default class CardList extends React.Component {
 
 class CardDetails extends React.Component {
 
+    completeClass ( status ) {
+
+        return status == 'complete'
+             ? ' card_is_complete'
+             : ' ';
+    }
+
+    cardStatusButton( status, cardId ) {
+
+        const completeButton = () => {
+            return(
+                <button 
+                    class='card-button'
+                    onClick={ this.props.markCardAsComplete.bind( this, cardId )   } >
+                    Complete
+                </button>
+            )
+        }
+
+        const activateButton = () => {
+            return(
+                <button 
+                    class='card-button'
+                    onClick={ this.props.markCardAsActive.bind( this, cardId )   } >
+                    Activate
+                </button>
+            )
+        }
+
+
+        return status != 'complete'
+             ? completeButton()
+             : activateButton();
+    }
+
     render() {
 
         return(
             <div class='card card-readonly' onDoubleClick={ this.props.editCard }>
                 <div >
-                    <h2 class='card-title'>{ this.props.card.title }</h2>
-                    <textarea readOnly class='card-text' value={ this.props.card.text }></textarea>
+                    <h2 class={ `card-title ${this.completeClass( this.props.card.status ) }` }>
+                        { this.props.card.title }
+                    </h2>
+                    <textarea 
+                        readOnly 
+                        class={ `card-text ${this.completeClass( this.props.card.status ) }` }
+                        value={ this.props.card.text }>
+                    </textarea>
                 </div>
                 <div class='card-action-bar'>
+                    { this.cardStatusButton( this.props.card.status, this.props.card.id ) }
                     <button class='card-button' onClick={ this.props.deleteCard.bind( this, this.props.card.id ) }>Delete</button>
                 </div>
             </div>

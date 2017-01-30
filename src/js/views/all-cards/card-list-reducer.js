@@ -123,6 +123,52 @@ export function allCardsCardListReducer( state=initialState, action ) {
 
         return { ...state, cardEditState: initialCardEditState };
 
+    } else if ( action.type == allCardsActions.CARD_COMPLETE_SUCCEEDED ) {
+        // todo: remove Dry violation the same logic is used in EDIT_CARD_SUCCEEDED
+        const getCard = ( card ) => {
+            return card.id != action.payload
+                 ? card
+                 : { ...card, status: 'complete' }
+        }
+
+        /* Update the card in the card list to reflect the edit */
+        var cards = [];
+            cards.length = state.cards.length;
+
+        state
+          .cards
+          .forEach( card => cards.push( getCard( card ) ) );
+        
+        const nextState = {
+            cards: cards,
+            cardEditState: initialCardEditState
+        }
+
+        return nextState;
+
+    } else if ( action.type == allCardsActions.CARD_ACTIVATE_SUCCEEDED ) {
+        // todo: remove Dry violation the same logic is used in EDIT_CARD_SUCCEEDED
+        const getCard = ( card ) => {
+            return card.id != action.payload
+                 ? card
+                 : { ...card, status: 'active' }
+        }
+
+        /* Update the card in the card list to reflect the edit */
+        var cards = [];
+            cards.length = state.cards.length;
+
+        state
+          .cards
+          .forEach( card => cards.push( getCard( card ) ) );
+        
+        const nextState = {
+            cards: cards,
+            cardEditState: initialCardEditState
+        }
+
+        return nextState;
+
     } else {
         return state;
     }

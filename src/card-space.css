@@ -181,6 +181,9 @@ ref:  http://www.hexcolortool.com/#fafafa
     cursor: pointer; cursor: hand;     
 }
 
+.card_is_complete {
+  text-decoration: line-through;
+}
 
 /****  Card readonly ****/
 .card-readonly textarea {

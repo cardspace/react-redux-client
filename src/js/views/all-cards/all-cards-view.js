@@ -1,6 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { cancelAddCard, addCard, editCardInCardList, cancelEditCardInCardList, updateCard, loadAllCardsForCurrentUser, deleteCard } from './all-cards-actions';
+import { cancelAddCard, 
+         addCard, 
+         editCardInCardList, 
+         cancelEditCardInCardList, 
+         updateCard, 
+         loadAllCardsForCurrentUser, 
+         deleteCard,
+         completeCard,
+         activateCard } from './all-cards-actions';
 
 import AddCard from './add-card-component';
 import CardList from './card-list-component';
@@ -23,7 +31,9 @@ const mapDispatchToProps = ( dispatch ) => {
     submitDeleteCard: ( cardId ) => dispatch( deleteCard( cardId ) ),
     editCardInList: ( cardId ) => dispatch( editCardInCardList( cardId ) ),
     updateCard: ( card ) => dispatch( updateCard( card ) ),
-    cancelEdit: ( cardId ) => dispatch( cancelEditCardInCardList( cardId ) )
+    cancelEdit: ( cardId ) => dispatch( cancelEditCardInCardList( cardId ) ),
+    markCardAsComplete: ( cardId ) => dispatch( completeCard( cardId ) ),
+    markCardAsActive: ( cardId ) => dispatch( activateCard( cardId ) )
   }
 
 }
@@ -49,6 +59,8 @@ class AllCardsView extends React.Component {
               editCardInList={ this.props.editCardInList }
               updateCard={ this.props.updateCard }
               cancelEdit={ this.props.cancelEdit }
+              markCardAsComplete={ this.props.markCardAsComplete }
+              markCardAsActive= { this.props.markCardAsActive }
               cardListState={ this.props.cardListState }
           />
         </div>

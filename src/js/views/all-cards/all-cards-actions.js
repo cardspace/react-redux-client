@@ -5,10 +5,55 @@ import { createValidationPayloadFromResponse, authenticationError, internalServe
 import { allCardsActions } from './all-cards-action-types';
 
 
+
+export function loadAllCardsForCurrentUser () {
+
+  return ( dispatch ) => {
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${getIdToken()}` }
+    };
+
+    axios
+      .get( cards_url, config )
+      .then( response => dispatch( { type: allCardsActions.CARDS_FETCHED, payload: response.data  } ) )
+      .catch( error => { 
+
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 401 ) {
+          dispatch( authenticationError() );
+        
+        } else if ( responseStatus >= 500 ) {
+          dispatch( createInternalServerErrorFromResponse( error.response ) );
+
+        } else {
+          dispatch( unknownError() );
+
+        }
+
+      });
+
+  }
+}
+
 export function cancelAddCard( ) {
 
   return { type: allCardsActions.ADD_CARD_CANCEL  }
 }
+
+export function editCardInCardList( cardId ) {
+
+    return { type: allCardsActions.EDIT_CARD, payload: cardId }
+
+}
+
+export function cancelEditCardInCardList( cardId ) {
+
+    return { type: allCardsActions.EDIT_CARD_CANCELED, payload: cardId }
+}
+
+
 
 export function addCard( card ) {
   return ( dispatch ) => {
@@ -43,17 +88,6 @@ export function addCard( card ) {
       });
   }
 
-}
-
-export function editCardInCardList( cardId ) {
-
-    return { type: allCardsActions.EDIT_CARD, payload: cardId }
-
-}
-
-export function cancelEditCardInCardList( cardId ) {
-
-    return { type: allCardsActions.EDIT_CARD_CANCELED, payload: cardId }
 }
 
 export function updateCard( card ) {
@@ -145,37 +179,71 @@ export function deleteCard( cardId ) {
 }
 
 
-export function loadAllCardsForCurrentUser () {
+export function completeCard( cardId ) {
 
   return ( dispatch ) => {
 
     const config = {
       headers: { 'Authorization': `Bearer ${getIdToken()}` }
     };
-
+  
     axios
-      .get( cards_url, config )
-      .then( response => dispatch( { type: allCardsActions.CARDS_FETCHED, payload: response.data  } ) )
+      .put( `${card_url}/${cardId}/completed`, {}, config )
+      .then( response => dispatch( { type: allCardsActions.CARD_COMPLETE_SUCCEEDED, payload: cardId } ) )
+      .then( () => dispatch( loadAllCardsForCurrentUser() ) )
       .catch( error => { 
 
         var responseStatus = getStatusCodeFromResponse( error.response );
 
         if ( responseStatus == 401 ) {
           dispatch( authenticationError() );
-        
-        } else if ( responseStatus >= 500 ) {
-          dispatch( createInternalServerErrorFromResponse( error.response ) );
+
+        } else if ( responseStatus == 403 ) {
+          dispatch( permissionError() );
+
+        } else if ( responseStatus == 404 ) {
+          dispatch( { type: allCardsActions.CARD_COMPLETE_FAILED_NOT_FOUND, payload: cardId } )
 
         } else {
           dispatch( unknownError() );
-
+  
         }
-
       });
-
   }
 }
 
+export function activateCard( cardId ) {
+
+  return ( dispatch ) => {
+
+    const config = {
+      headers: { 'Authorization': `Bearer ${getIdToken()}` }
+    };
+  
+    axios
+      .put( `${card_url}/${cardId}/activate`, {}, config )
+      .then( response => dispatch( { type: allCardsActions.CARD_ACTIVATE_SUCCEEDED, payload: cardId } ) )
+      .then( () => dispatch( loadAllCardsForCurrentUser() ) )
+      .catch( error => { 
+
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 401 ) {
+          dispatch( authenticationError() );
+
+        } else if ( responseStatus == 403 ) {
+          dispatch( permissionError() );
+
+        } else if ( responseStatus == 404 ) {
+          dispatch( { type: allCardsActions.CARD_COMPLETE_ACTIVATED_NOT_FOUND, payload: cardId } )
+
+        } else {
+          dispatch( unknownError() );
+  
+        }
+      });
+  }
+}
 
 const cardFieldNames = [ 'title', 'description', 'url' ];
 
