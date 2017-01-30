@@ -27,86 +27,42 @@ const initialState = {
     cardEditState: initialCardEditState
 }
 
-export function allCardsCardListReducer( state=initialState, action ) {
 
-    if ( action.type == allCardsActions.CARDS_FILTER_CHANGED ) {
-        return { ...state, filterState: action.payload }
+const createFieldValue = ( value ) => {
+    return { 
+        value: value,
+        error: []
+    }
+}
 
-    } else if ( action.type == allCardsActions.CARDS_FETCHED ) {
-        return { ...state, cards: action.payload }
+let actions = {};
 
-    } else if ( action.type == allCardsActions.EDIT_CARD ) {
-        let card = state.cards.find( c => c.id == action.payload );
+actions[ allCardsActions.CARDS_FILTER_CHANGED ] = ( state, action ) => {
 
-        let editState = { };
-        if ( card ) {
+    return { 
+        ...state, 
+        filterState: action.payload 
+    }
 
-            let editState= {
-                state: editState,
-                data: {
-                    id: card.id,
-                    title: createFieldValue( card.title ),
-                    text: createFieldValue( card.text )
-                }
-            }
-            return { ...state,  cardEditState: editState };
+}
 
-        } else {
-            return state
-        }
+actions[ allCardsActions.CARDS_FETCHED ] = ( state, action ) => {
 
-    } else if ( action.type == allCardsActions.EDIT_CARD_BEFORE_SUBMIT ) {
+    return { 
+        ...state, 
+        cards: action.payload 
+    }
+    
+}
 
-        // Make the edit state reflect what has been submitted for update.
-        // The update is included as the action payload.
+actions[ allCardsActions.EDIT_CARD ] = ( state, action ) =>{
 
-        return {
-            ...state,
-            cardEditState: {
-                state: editState.editing,
-                data: {
-                    id: action.payload.id,
-                    title: createFieldValue( action.payload.title ),
-                    text: createFieldValue( action.payload.text )
-                }
-            }
-        }
+    let card = state.cards.find( c => c.id == action.payload );
 
-    } else if ( action.type == allCardsActions.EDIT_CARD_SUCCEEDED ) {
+    let editState = { };
+    if ( card ) {
 
-        const getCard = ( card ) => {
-            return card.id != action.payload.id 
-                 ? card
-                 : { ...action.payload }
-        }
-
-        return { 
-            ...state, 
-            cards: state.cards.map( getCard ), 
-            cardEditState: initialCardEditState 
-        }
-
-    } else if ( action.type == allCardsActions.EDIT_CARD_FAILED_VALIDATION ) {
-
-        // record the errors in the edit state
-
-        return {
-            ...state,
-            cardEditState : {
-                ...state.cardEitState,
-                data: {
-                  id: state.cardEditState.data.id,
-                  title: { ...state.cardEditState.title, error: action.payload.title || []  },
-                  text: { ...state.cardEditState.text , error: action.payload.text || []  }
-                }
-            } 
-        }
-
-    } else if ( action.type == allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ) {
-
-        let card = action.payload;
-
-        let editState = {
+        let editState= {
             state: editState,
             data: {
                 id: card.id,
@@ -116,80 +72,135 @@ export function allCardsCardListReducer( state=initialState, action ) {
         }
         return { ...state,  cardEditState: editState };
 
-    } else if ( action.type == allCardsActions.EDIT_CARD_CANCELED ) {  
-
-        return { ...state, cardEditState: initialCardEditState };
-
-    } else if ( action.type == allCardsActions.CARD_COMPLETE_SUCCEEDED ) {
-        // todo: remove Dry violation the same logic is used in EDIT_CARD_SUCCEEDED
-        const getCard = ( card ) => {
-            return card.id != action.payload
-                 ? card
-                 : { ...card, status: 'complete' }
-        }
-
-        return { 
-            ...state, 
-            cards: state.cards.map( getCard ), 
-            cardEditState: initialCardEditState 
-        }
-
-
-
-        /* Update the card in the card list to reflect the edit * /
-        var cards = [];
-            cards.length = state.cards.length;
-
-        state
-          .cards
-          .forEach( card => cards.push( getCard( card ) ) );
-        
-        const nextState = {
-            cards: cards,
-            cardEditState: initialCardEditState
-        }
-
-        return nextState; */
-
-    } else if ( action.type == allCardsActions.CARD_ACTIVATE_SUCCEEDED ) {
-
-        const getCard = ( card ) => {
-            return card.id != action.payload
-                 ? card
-                 : { ...card, status: 'active' }
-        }
-
-        return { 
-            ...state, 
-            cards: state.cards.map( getCard ), 
-            cardEditState: initialCardEditState 
-        }
-
-
-        /* Update the card in the card list to reflect the edit * /
-        var cards = [];
-            cards.length = state.cards.length;
-
-        state
-          .cards
-          .forEach( card => cards.push( getCard( card ) ) );
-        
-        const nextState = {
-            cards: cards,
-            cardEditState: initialCardEditState
-        }
-
-        return nextState;
-        */
-
     } else {
-        return state;
+        return state
+    }
+
+}
+
+
+actions[ allCardsActions.EDIT_CARD_BEFORE_SUBMIT ] = ( state, action ) => {
+
+    // Make the edit state reflect what has been submitted for update.
+    // The update is included as the action payload.
+
+    return {
+        ...state,
+        cardEditState: {
+            state: editState.editing,
+            data: {
+                id: action.payload.id,
+                title: createFieldValue( action.payload.title ),
+                text: createFieldValue( action.payload.text )
+            }
+        }
     }
 }
 
-const createFieldValue = ( value ) => {
-    return { 
-        value: value,
-        error: []
+actions[ allCardsActions.EDIT_CARD_SUCCEEDED ] = ( state, action ) => {
+
+    const getCard = ( card ) => {
+        return card.id != action.payload.id 
+                ? card
+                : { ...action.payload }
     }
+
+    return { 
+        ...state, 
+        cards: state.cards.map( getCard ), 
+        cardEditState: initialCardEditState 
+    }
+
+}
+
+
+actions[ allCardsActions.EDIT_CARD_FAILED_VALIDATION ] = ( state, action ) => {
+
+    // record the errors in the edit state
+
+    return {
+        ...state,
+        cardEditState : {
+            ...state.cardEitState,
+            data: {
+                id: state.cardEditState.data.id,
+                title: { ...state.cardEditState.title, error: action.payload.title || []  },
+                text: { ...state.cardEditState.text , error: action.payload.text || []  }
+            }
+        } 
+    }
+
+}
+
+actions[ allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ] = ( state, action ) => {
+
+    // Q. is there any point to this it is just going to be the previous state?
+
+    let card = action.payload;
+
+    let editState = {
+        state: editState,
+        data: {
+            id: card.id,
+            title: createFieldValue( card.title ),
+            text: createFieldValue( card.text )
+        }
+    }
+    return { ...state,  cardEditState: editState };
+
+}
+
+
+actions[ allCardsActions.EDIT_CARD_CANCELED ] = ( state, action ) => {
+
+    return { 
+        ...state, 
+        cardEditState: initialCardEditState 
+    };
+
+}
+
+
+actions[ allCardsActions.CARD_COMPLETE_SUCCEEDED ] = ( state, action ) => {
+
+    const getCard = ( card ) => {
+        return card.id != action.payload
+                ? card
+                : { ...card, status: 'complete' }
+    }
+
+    return { 
+        ...state, 
+        cards: state.cards.map( getCard ), 
+        cardEditState: initialCardEditState 
+    }
+
+}
+
+actions[ allCardsActions.CARD_ACTIVATE_SUCCEEDED ] = ( state, action ) =>{
+
+    const getCard = ( card ) => {
+        return card.id != action.payload
+                ? card
+                : { ...card, status: 'active' }
+    }
+
+    return { 
+        ...state, 
+        cards: state.cards.map( getCard ), 
+        cardEditState: initialCardEditState 
+    }
+
+};
+
+export function allCardsCardListReducer( state=initialState, action ) {
+
+    var reducerAction = actions[ action.type ];
+
+    console.log( actions )
+    console.log( action )
+    console.log( reducerAction );
+
+    return reducerAction ? reducerAction( state, action ) : state;
+
 }
