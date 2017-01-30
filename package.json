@@ -32,12 +32,12 @@
 
     "dev-js": "webpack --config webpack.config.dev.js",
     "dev-build": "npm run clean && npm run static && npm run dev-js",
-    "dev-server": "webpack-dev-server --content-base src/dist/dev --inline --hot --config webpack.config.dev.js",
+    "dev-server": "webpack-dev-server --content-base src/dist --inline --hot --config webpack.config.dev.js",
     "dev": "npm run dev-build && npm run dev-server",    
 
     "stage-js": "webpack --config webpack.config.stage.js",
     "stage-build": "npm run clean && npm run static && npm run stage-js", 
-    "stage-server": "webpack-dev-server --content-base src/dist/stage --inline --hot --config webpack.config.stage.js",
+    "stage-server": "webpack-dev-server --content-base src/dist --inline --hot --config webpack.config.stage.js",
     "stage-deploy": "firebase deploy -P default",
     "stage-release": "npm run stage-build && npm run stage-deploy",
     "stage": "npm run stage-build && npm run stage-server",
