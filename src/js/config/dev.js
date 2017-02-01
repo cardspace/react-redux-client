@@ -13,6 +13,9 @@
 export const cards_url = 'https://cardspace-api-dev.herokuapp.com/v1/cards';
 export const card_url = 'https://cardspace-api-dev.herokuapp.com/v1/card';
 
+export const spaces_url = 'https://cardspace-api-dev.herokuapp.com/v1/spaces';
+export const space_url = 'https://cardspace-api-dev.herokuapp.com/v1/space';
+
 export const auth0_client_id = 'NP5BF3hkstyAEyg1J3boW6xXmOVGnHj3';
 export const auth0_domain = 'wipmoore.eu.auth0.com';
 export const auth0_redirectUrl = 'http://localhost:8080/user-authenticated';

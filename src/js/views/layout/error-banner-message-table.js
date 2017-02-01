@@ -1,4 +1,5 @@
 import { allCardsActions, allCardsErrorMessages } from '../all-cards/all-cards-action-types';
+import { spacesListActions, spacesListErrorMessages } from '../spaces/spaces-list-action-type';
 import { errorActions } from '../../services/error-action-types';
 
 
@@ -22,11 +23,14 @@ errorMessages[ errorActions.PERMISSION_ERROR ]
 errorMessages[ allCardsActions.EDIT_CARD_FAILED_NOT_FOUND ] 
     = errorMessage.bind( allCardsErrorMessages.EDIT_CARD_FAILED_NOT_FOUND );
 
-errorMessage[ allCardsActions.CARD_COMPLETE_FAILED_NOT_FOUND ]
-    = errorMessage.bind( allCardsErrorMessages.CARD_COMPLETE_FAILED_NOT_FOUND )
+errorMessages[ allCardsActions.CARD_COMPLETE_FAILED_NOT_FOUND ]
+    = errorMessage.bind( allCardsErrorMessages.CARD_COMPLETE_FAILED_NOT_FOUND );
 
-errorMessage[ allCardsActions.CARD_ACTIVATE_FAILED_NOT_FOUND ]
-    = errorMessage.bind( allCardsErrorMessages.CARD_ACTIVATE_FAILED_NOT_FOUND )
+errorMessages[ allCardsActions.CARD_ACTIVATE_FAILED_NOT_FOUND ]
+    = errorMessage.bind( allCardsErrorMessages.CARD_ACTIVATE_FAILED_NOT_FOUND );
+
+errorMessages[  spacesListActions.EDIT_SPACE_FAILED_NOT_FOUND ]
+    = errorMessage.bind( spacesListErrorMessages.EDIT_SPACE_FAILED_NOT_FOUND );
 
 
 export const errorMessageTable = errorMessages;

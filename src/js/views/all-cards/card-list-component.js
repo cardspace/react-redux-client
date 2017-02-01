@@ -3,6 +3,26 @@ import { TextInput, TextAreaInput } from '../../controls/input-controls';
 
 export default class CardList extends React.Component {
 
+    // props 
+    //     loadCards: method that loads the cards from the server
+    //     cardListState: {
+    //         cardEditState: {
+    //             data: {
+    //               id: ??
+    //             }
+    //         }
+    //         cards: array of {
+    //             ???    
+    //         }
+    //     }
+    //     deleteCard         : delete button clicked, it expects a card id
+    //     editCardInList     : edit button clicked, it expects a card id
+    //     markCardAsComplete : complete button clicked, it expects a card id
+    //     markCardAsActive   : active button clicked, it expects a card id
+    //     updateCard         : update button clicked { id, title, text }
+    //     cancelEdit         : cancel button clicked
+
+
     constructor( props ) {
         super( props );
 

@@ -41,7 +41,6 @@ export default class CardListFilter extends React.Component {
     filterSelected ( filter ) {
         
         if ( filter != this.props.filterState ) {
-            console.log( filter );
             this.props.changeFilter( filter );
         } 
     }
@@ -50,8 +49,6 @@ export default class CardListFilter extends React.Component {
 
 
     render() {
-
-        console.log( this.props );
 
         return(
             <div >

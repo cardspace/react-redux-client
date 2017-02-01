@@ -6,13 +6,18 @@ import { securityReducer } from './services/security-reducer';
 
 import { allCardsAddCardReducer } from  './views/all-cards/add-card-reducer';
 import { allCardsCardListReducer } from './views/all-cards/card-list-reducer';
-
+import { spacesListReducer } from'./views/spaces/spaces-list-reducer';
+import { spacesAddReducer } from './views/spaces/spaces-add-reducer';
 
 const reducers = combineReducers({
     security: securityReducer,
     banner: bannerReducer,
+    
     allCardsAddCard: allCardsAddCardReducer,
-    allCardsCardList: allCardsCardListReducer
+    allCardsCardList: allCardsCardListReducer,
+
+    spacesAdd: spacesAddReducer,
+    spacesList: spacesListReducer
 });
 
 const middleware = applyMiddleware( thunk, logger() );

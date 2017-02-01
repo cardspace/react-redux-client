@@ -7,6 +7,8 @@ import { authenticated } from './services/security-actions';
 import Layout from './views/layout/layout';
 import LandingView from './views/landing/landing-view';
 
+import SpaceView from './views/spaces/spaces-view';
+
 const mapStateToProps = ( state ) => {
   return {
     isLoggedIn: state.security.isLoggedIn
@@ -33,6 +35,7 @@ class Routes extends React.Component {
         <Route component={ Layout }>
             <Route path='/' component={ LandingView } />
             <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } />
+            <Route path='/spaces' component={ SpaceView } />
         </Route>
       </Router>
     );

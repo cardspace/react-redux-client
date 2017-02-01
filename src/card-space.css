@@ -85,7 +85,7 @@ ref:  http://www.hexcolortool.com/#fafafa
 
 /*** - layout 
 
-  columns provide horizontal positioning and spacing
+  columns provide horizontal positioning ( including responsive positioning based on card width ) and spacing
 */
 
 .leftColumn {
@@ -141,7 +141,6 @@ ref:  http://www.hexcolortool.com/#fafafa
    cursor: pointer; cursor: hand;
 }
 
-/**** - Card general ****/
 
 .cardlist {
     padding: 0;
@@ -150,11 +149,15 @@ ref:  http://www.hexcolortool.com/#fafafa
     list-style-type: none;
 }
 
+.spacelist .space-summary,
 .cardlist .card {
     margin: 0 10px 10px 0;
     float: left;
 }
 
+/**** - Card, space summary general ****/
+
+.space-summary,
 .card {
     margin: 0;
     padding: 0;
@@ -166,13 +169,19 @@ ref:  http://www.hexcolortool.com/#fafafa
     width: 345px;
  }
 
+.space-summary-title,
 .card-title {
+    border: none;
+    outline: 0 none;
     font-size: 24px;
     margin: 5px 0 0 5px;
     text-overflow: ellips;
 }
 
+.space-summary-text,
 .card-text {
+    border: none;
+    outline: 0 none;
     font-size: 24px;
     height: 120px;
     margin: 5px 0 0 5px;
@@ -181,6 +190,7 @@ ref:  http://www.hexcolortool.com/#fafafa
     word-wrap: break-word;
 }
 
+.space-summary-action-bar,
 .card-action-bar {
     height: 50px;
 
@@ -190,6 +200,7 @@ ref:  http://www.hexcolortool.com/#fafafa
     left: 0;
 }
 
+.space-summary-button,
 .card-button {
     background-color: #fafafa;
     border: none;
@@ -200,11 +211,13 @@ ref:  http://www.hexcolortool.com/#fafafa
     height: 50px;
 }
 
+.space-summary-button:focus,
 .card-button:focus { 
     background-color: #e1e1e1;
     outline: none;
 }
 
+.space-summary-button:hover,
 .card-button:hover {
     background-color: #e1e1e1;
     cursor: pointer; cursor: hand;     
@@ -215,6 +228,7 @@ ref:  http://www.hexcolortool.com/#fafafa
 }
 
 /****  Card readonly ****/
+.space-summary.readonly textarea,
 .card-readonly textarea {
   background-color: #fafafa;
   border: none !important;
@@ -232,10 +246,12 @@ ref:  http://www.hexcolortool.com/#fafafa
 }
 
 
+.space-summary.editor input[type="text"],
 .card-editor input[type="text"] {
   width: 334px;  /* Based on a card being 345px wide */
 }
 
+.space-summary.editor textarea,
 .card-editor textarea {
   resize: none;
   width: 334px;  /* Based on a card being 345px wide */

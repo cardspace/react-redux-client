@@ -4,9 +4,10 @@ import { getIdToken, hasIdToken } from '../../services/authentication-store';
 import { createValidationPayloadFromResponse, authenticationError, internalServerError, permissionError, unknownError } from '../../services/error-actions';
 import { allCardsActions } from './all-cards-action-types';
 
+import { createInternalServerErrorFromResponse, getStatusCodeFromResponse } from '../../services/response';
+
 
 export function changeFilter( filter ) {
-  console.log( 'changeFilter', filter )
 
   return ( dispatch ) => {
     dispatch( { type: allCardsActions.CARDS_FILTER_CHANGED, payload: filter  } );
@@ -260,7 +261,7 @@ export function activateCard( cardId ) {
 
 
 
-const cardFieldNames = [ 'title', 'description', 'url' ];
+const cardFieldNames = [ 'title', 'text' ];
 
 const createCardValidationErrorFromResponse = ( response, type ) => {
 
@@ -274,15 +275,3 @@ const createCardValidationErrorFromResponse = ( response, type ) => {
 
 }
 
-const createInternalServerErrorFromResponse = ( response ) => {
-
-  return internalServerError( response.data.id );
-}
-
-const getStatusCodeFromResponse = ( response ) => {
-
-  return ( response && response.status )
-       ? response.status
-       : -1;
-
-}

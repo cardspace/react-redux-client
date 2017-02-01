@@ -197,10 +197,6 @@ export function allCardsCardListReducer( state=initialState, action ) {
 
     var reducerAction = actions[ action.type ];
 
-    console.log( actions )
-    console.log( action )
-    console.log( reducerAction );
-
     return reducerAction ? reducerAction( state, action ) : state;
 
 }
