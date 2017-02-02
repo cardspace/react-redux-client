@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TextInput, TextAreaInput } from '../../../controls/input-controls';
+import { TextInput, TextAreaInput } from '../../../components/input-controls';
 
 
 

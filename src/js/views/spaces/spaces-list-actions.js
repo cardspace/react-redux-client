@@ -121,7 +121,7 @@ export function deleteSpace( spaceId ) {
 
             } else if ( responseStatus == 404 ) {
                 // 404 Not found, so just treat it like the card was deleted
-                dispatch( cardDeleted( cardId ) );
+                dispatch( cardDeleted( spaceId ) );
 
             } else if ( responseStatus >= 500 ) {
                 dispatch( createInternalServerErrorFromResponse( error.response ) );

@@ -8,6 +8,8 @@ import Layout from './views/layout/layout';
 import LandingView from './views/landing/landing-view';
 
 import SpaceView from './views/spaces/spaces-view';
+import CardsView from './views/all-cards/all-cards-view';
+
 
 const mapStateToProps = ( state ) => {
   return {
@@ -36,6 +38,7 @@ class Routes extends React.Component {
             <Route path='/' component={ LandingView } />
             <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } />
             <Route path='/spaces' component={ SpaceView } />
+            <Route path='/cards' component={ CardsView } />
         </Route>
       </Router>
     );

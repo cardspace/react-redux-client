@@ -1,13 +1,11 @@
 import React from 'react';
-import { cardFilters } from './card-filters';
+import { cardFilters } from '../card-filters';
 
 
 export default class CardListFilter extends React.Component {
-    // props = {
+    // props: 
     //    filterState: the current filter state. [ 'all', 'active', 'complete' ]    
     //    changeFilter: action that is called when the filter is changed
-    // }
-
 
     isFilteredOnActive () {
         return this.props.filterState == cardFilters.active;

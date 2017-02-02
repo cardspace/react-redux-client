@@ -1,8 +1,17 @@
 import React from 'react';
-import { TextInput, TextAreaInput } from '../../controls/input-controls';
+import { TextInput, TextAreaInput } from '../../input-controls';
 
 
 export default class AddCard extends React.Component {
+
+    // props:
+    //   editState {
+    //      title: { value, errors[] }
+    //      text:  { value, errors[] }
+    //   }
+    //   addCard
+    //   cancel
+
     constructor( props ) {
         super( props );
 
@@ -10,7 +19,7 @@ export default class AddCard extends React.Component {
     }
 
     getStateFromProps( props ) {
-        return props.addCardState.data;
+        return props.editState
     }
 
     componentWillReceiveProps( nextProps ) {
@@ -52,14 +61,14 @@ export default class AddCard extends React.Component {
               
                 <TextInput 
                     fieldClass='card-title'
-                    hasErrors={ this.state.title.error.length > 0 }
+                    hasErrors={ this.state.title.errors.length > 0 }
                     value={ this.state.title.value }
                     onChange={ this.titleChanged.bind( this ) }
                 />              
 
                 <TextAreaInput
                     fieldClass='card-text'
-                    hasErrors={ this.state.text.error.length > 0 }
+                    hasErrors={ this.state.text.errors.length > 0 }
                     value={ this.state.text.value }
                     onChange={ this.textChanged.bind( this ) }
                 />

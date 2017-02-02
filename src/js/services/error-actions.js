@@ -4,7 +4,7 @@ import { errorActions } from './error-action-types';
 export function authenticationError() {
     return ( dispatch ) => {
         dispatch( logout() );
-        dispatch( { type: errorAction.UNAUTHORISED_ERROR } );
+        dispatch( { type: errorActions.UNAUTHORISED_ERROR } );
     }
 }
 
@@ -22,7 +22,7 @@ export function unknownError( ) {
 
 export function permissionError() {
 
-    return { type: errorAction.PERMISSION_ERROR }
+    return { type: errorActions.PERMISSION_ERROR }
 }
 
 
