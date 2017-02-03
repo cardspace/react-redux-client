@@ -41,6 +41,12 @@ export default class SpaceSummaryCard extends React.Component {
                 </div>
 
                 <div class='space-summary-action-bar'>
+                    <button 
+                        class='space-summary-button'
+                        onClick={ this.props.viewSpace }
+                    >
+                        View
+                    </button>
                     { deleteButton() }
                 </div>
 

@@ -24,7 +24,8 @@ import User from './header/User';
 
 const mapStateToProps = ( state ) => {
   return {
-    isLoggedIn: state.security.isLoggedIn
+    isLoggedIn: state.security.isLoggedIn,
+    pageTitle: state.header.pageTitle
   }
 }
 
@@ -43,7 +44,10 @@ class Header extends React.Component {
 
     return (
       <header class='header'>
-        <Site />
+        <Site 
+          siteTitle='CardSpace'
+          pageTitle={ this.props.pageTitle }
+        />
         <User 
           isLoggedIn={ this.props.isLoggedIn } 
           login={ this.props.login.bind( this ) }

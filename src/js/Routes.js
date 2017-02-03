@@ -7,9 +7,11 @@ import { authenticated } from './services/security-actions';
 import Layout from './views/layout/layout';
 import LandingView from './views/landing/landing-view';
 
-import SpaceView from './views/spaces/spaces-view';
-import CardsView from './views/all-cards/all-cards-view';
+import AllCardsView from './views/all-cards/all-cards-view';
 
+
+import SpacesView from './views/spaces/spaces-view';
+import SpaceView from './views/space/space-view';
 
 const mapStateToProps = ( state ) => {
   return {
@@ -36,9 +38,10 @@ class Routes extends React.Component {
       <Router history={ browserHistory }>
         <Route component={ Layout }>
             <Route path='/' component={ LandingView } />
+            <Route path='/all-cards' component={ AllCardsView } />
+
+            <Route path='/space/:id' component={ SpaceView } />
             <Route path='/user-authenticated' onEnter={ this.props.authenticated.bind( this ) } />
-            <Route path='/spaces' component={ SpaceView } />
-            <Route path='/cards' component={ CardsView } />
         </Route>
       </Router>
     );

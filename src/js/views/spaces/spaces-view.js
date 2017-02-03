@@ -10,6 +10,9 @@ import { loadAllSpacesForCurrentUser
 import { addSpace
        , cancelAdd } from './spaces-add-actions';
 
+import { viewAllCards
+       , viewSpace } from '../view-actions';
+
 import SpaceList from './components/space-list-component';
 import SpaceAdd from './components/spaces-add-component';
 
@@ -29,7 +32,10 @@ const mapDispatchToProps = ( dispatch ) => {
         cancelEdit:  ( ) => dispatch( cancelEdit() ),
         deleteSpace: ( spaceId ) => dispatch( deleteSpace( spaceId ) ),
         addSpace : ( space ) => dispatch( addSpace( space )),
-        cancelAdd : () => dispatch( cancelAdd() )
+        cancelAdd : () => dispatch( cancelAdd() ),
+        viewSpace : ( spaceId ) => dispatch( viewSpace( spaceId )),
+        viewAllCards : () => dispatch( viewAllCards() )
+
     }
 }
 
@@ -56,6 +62,9 @@ class SpacesView extends React.Component {
                         editState={ this.props.editState }
                         updateSpace={ this.props.updateSpace }
                         cancelEdit={ this.props.cancelEdit }
+
+                        viewSpace={ this.props.viewSpace }
+                        viewAllCards={ this.props.viewAllCards }
 
                         deleteSpace={ this.props.deleteSpace }
                     />

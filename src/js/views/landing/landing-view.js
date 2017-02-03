@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AboutView from '../about/about-view';
+import SpacesView from '../spaces/spaces-view';
 import AllCardsView from '../all-cards/all-cards-view';
 
 const mapStateToProps = ( state ) => {
@@ -19,7 +20,7 @@ class LandingView extends React.Component {
     render() {
 
         return this.props.isLoggedIn
-             ? <AllCardsView />
+             ? <SpacesView />
              : <AboutView />
              
     }
