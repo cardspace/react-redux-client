@@ -42,7 +42,7 @@ export default class SpaceList extends React.Component {
                     space={ space } 
                     editSpace={ this.props.editSpace.bind( this, space.id ) }
                     deleteSpace={ this.props.deleteSpace.bind( this, space.id ) } 
-                    viewSpace={ this.props.viewSpace.bind( this, space ) }
+                    viewSpace={ this.props.viewSpace.bind( this, space.id ) }
                 />
             )
         }

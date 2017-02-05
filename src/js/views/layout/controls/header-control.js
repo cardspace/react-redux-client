@@ -10,22 +10,17 @@
 // in middleware which is going to take some time to
 // get right which is not a priority at this stage.
 //
-// ( That decisions will come back an bite me but hey 
-// ho you have to make some compromises )
-//
 
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { displayLoginForm, logout } from '../../services/security-actions'
+import { displayLoginForm, logout } from '../../../services/security-actions'
 
-import Site from './header/Site';
-import User from './header/User';
 
 const mapStateToProps = ( state ) => {
   return {
     isLoggedIn: state.security.isLoggedIn,
-    pageTitle: state.header.pageTitle
+    viewTitle: state.header.viewTitle
   }
 }
 
@@ -40,19 +35,44 @@ const mapDispatchToProps = ( dispatch ) => {
 
 class Header extends React.Component {
 
+  authenticationControl() {
+
+    const login =() => {
+
+      return (
+        <div class="header-user-authentication card-button" onClick={ this.props.login } >
+          Signin/up
+        </div>
+      )
+
+    }
+
+    const logout = () => {
+
+      return(
+        <div class="card-button" onClick={ this.props.logout } >
+          Logout
+        </div>
+      ) 
+    }
+
+    return this.props.isLoggedIn ? logout() : login();
+
+  }
+
   render() {
 
     return (
       <header class='header'>
-        <Site 
-          siteTitle='CardSpace'
-          pageTitle={ this.props.pageTitle }
-        />
-        <User 
-          isLoggedIn={ this.props.isLoggedIn } 
-          login={ this.props.login.bind( this ) }
-          logout={ this.props.logout.bind( this ) }          
-        />
+        <h1 class='site-header'>
+            <a class='site-title' href='/'>CardSpace</a>
+            <span class="view-title" > : { this.props.viewTitle }</span>
+        </h1>
+
+        <nav class='user-menue'>
+            { this.authenticationControl() }
+        </nav>
+
       </header>
     );
 

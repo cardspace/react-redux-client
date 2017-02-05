@@ -10,10 +10,11 @@ import AddCard from  '../../components/cards/controls/add-card-control';
 import { buildCardListActions } from '../../components/cards/card-list-actions';
 import { buildAddCardActions } from  '../../components/cards/add-card-actions';
 
+import { changeView } from '../view-actions';
+
+
 
 const mapStateToProps = ( state ) => {
-
-    console.log( state )
 
     return {
         // filter state
@@ -41,6 +42,8 @@ const mapDispatchToProps = ( dispatch ) => {
 
     return {
 
+        changeView: ( viewDetails ) => dispatch( changeView( viewDetails ) ),
+
         // filter event handlers
         changeFilter: ( filter ) => dispatch( listEventHandlers.changeFilter( filter ) ),
 
@@ -61,6 +64,14 @@ const mapDispatchToProps = ( dispatch ) => {
 }
 
 class Cards extends React.Component {
+
+    constructor( props ) {
+        super( props );
+
+        this.props.changeView({
+            title: 'All Cards'
+        })
+    }
 
     render() {
 

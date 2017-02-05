@@ -1,6 +1,30 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
-export default React.createClass({
+import { changeView } from '../view-actions';
+
+
+const mapStateToProps = ( state ) => {
+  return {}
+}
+
+const mapDispatchToProps = ( dispatch ) => {
+  return {
+    changeView: ( viewDetails ) => dispatch( changeView( viewDetails ) )
+  }
+}
+
+class AboutView extends React.Component {
+
+
+  constructor( props ) {
+    super( props );
+
+    this.props.changeView({
+      title: 'About'
+    })
+  }
+
   render() {
     return (
       <div class='view'>
@@ -8,4 +32,9 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+) ( AboutView )

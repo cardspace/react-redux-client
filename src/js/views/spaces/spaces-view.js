@@ -11,7 +11,8 @@ import { addSpace
        , cancelAdd } from './spaces-add-actions';
 
 import { viewAllCards
-       , viewSpace } from '../view-actions';
+       , viewSpace
+       , changeView } from '../view-actions';
 
 import SpaceList from './components/space-list-component';
 import SpaceAdd from './components/spaces-add-component';
@@ -26,6 +27,7 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
     return {
+        changeView: ( viewDetails ) => dispatch( changeView( viewDetails ) ),
         loadSpaces: () => dispatch( loadAllSpacesForCurrentUser()  ),
         editSpace: ( spaceId ) => dispatch( editSpace( spaceId ) ),
         updateSpace: ( space ) => dispatch( updateSpace( space ) ),
@@ -40,6 +42,15 @@ const mapDispatchToProps = ( dispatch ) => {
 }
 
 class SpacesView extends React.Component {
+
+    constructor( props ) {
+        super( props );
+
+        this.props.changeView( {
+            title: 'Spaces'
+        } )
+    }
+
 
     render() {
         return(

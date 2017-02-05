@@ -10,10 +10,10 @@ import AddCard from  '../../components/cards/controls/add-card-control';
 import { buildCardListActions } from '../../components/cards/card-list-actions';
 import { buildAddCardActions } from  '../../components/cards/add-card-actions';
 
+import { changeView } from '../view-actions';
+
 
 const mapStateToProps = ( state ) => {
-
-    console.log( state );
 
     return {
         // filter state
@@ -31,11 +31,8 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
 
-    console.log( 'ownProps', ownProps )
 
     const spaceCardsUrl = space_cards_url.replace( ':id', ownProps.routeParams.id );
-
-    console.log( 'spaceCardsUrl', spaceCardsUrl )
 
     const addEventHandlers = buildAddCardActions( 'space', spaceCardsUrl );
     const listEventHandlers = buildCardListActions( 'space', spaceCardsUrl, ( state ) => state.spaceList );
@@ -46,6 +43,8 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
     }
 
     return {
+
+        changeView : ( viewDetails ) => dispatch( changeView( viewDetails ) ),
 
         // filter event handlers
         changeFilter: ( filter ) => dispatch( listEventHandlers.changeFilter( filter ) ),
@@ -67,6 +66,14 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
 }
 
 class SpaceView extends React.Component {
+
+    constructor( props ) {
+        super( props );
+
+        this.props.changeView({
+            title: 'Space'
+        })
+    }
 
     render() {
 

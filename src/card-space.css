@@ -51,22 +51,30 @@ ref:  http://www.hexcolortool.com/#fafafa
 }
 
 
-.header-site {
+.site-header {
   margin-left: 0;
 }
 
-.header-site-title {
+.site-header .site-title {
   color: black;
   font-size: 24px;
   line-height: 45px;
   text-decoration: none;
 }
 
-.header-site, .header-user {
+.site-header .view-title {
+  color: black;
+  font-size: 18px;
+  font-weight:normal;
+  line-height: 45px;
+  text-decoration: none;
+}
+
+.header .site-header, .header .user-menue {
   display: inline-block;
 }
 
-.header-user {
+.header .user-menue {
   float: right;
   max-height: none;
   overflow: hidden;

@@ -1,15 +1,16 @@
+import { viewActionTypes } from '../view-action-types';
 
 const initialState = {
-    pageTitle: "",   
+    viewTitle: "",   
 }
 
 export function headerReducer( state=initialState, action ) {
 
-    if ( action.type == 'PAGE_CHANGE' ) {
+    if ( action.type == viewActionTypes.CHANGED_VIEW ) {
 
         return { 
             ...state,
-            pageTitle: action.payload
+            viewTitle: action.payload.title
          }
          
     } else {
