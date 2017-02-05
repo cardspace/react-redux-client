@@ -1,7 +1,7 @@
 import React from 'react';
-import SpaceSummaryCard from './space-summary-card-component';
 
-import SpaceSummaryEditor from './space-summary-editor-component';
+import SpaceSummaryCard from './space-summary-card-control';
+import SpaceSummaryEditor from './space-summary-editor-control';
 
 
 export default class SpaceList extends React.Component {

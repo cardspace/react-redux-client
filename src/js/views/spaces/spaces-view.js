@@ -14,8 +14,8 @@ import { viewAllCards
        , viewSpace
        , changeView } from '../view-actions';
 
-import SpaceList from './components/space-list-component';
-import SpaceAdd from './components/spaces-add-component';
+import SpaceList from './controls/space-list-control';
+import SpaceAdd from './controls/spaces-add-control';
 
 const mapStateToProps = ( state ) => {
     return {
