@@ -3,6 +3,7 @@ import React from 'react';
 import SpaceSummaryCard from './space-summary-card-control';
 import SpaceSummaryEditor from './space-summary-editor-control';
 
+import { spaceFilters } from '../space-filters';
 
 export default class SpaceList extends React.Component {
 
@@ -66,14 +67,32 @@ export default class SpaceList extends React.Component {
 
     }
 
-    render() {
-        return(
-            <div class='spacelist' >
+    createAllCards( filter ) {
+
+        const allCardsCard = ( ) => {
+
+            return(
                 <SpaceSummaryCard 
                     space={ { title:'All cards', text:'A list of all cards that have been created.'} }
                     viewSpace={ this.props.viewAllCards }
                  />
-                 { this.props.spaces.map( space => this.createLineItem( space ) )  }
+            )
+        }
+
+        console.log( this.props )
+        console.log( this.props.filterState )
+
+        return filter == spaceFilters.all
+                ? allCardsCard() 
+                : null;
+
+    }
+
+    render() {
+        return(
+            <div class='spacelist' >
+                { this.createAllCards( this.props.filterState ) }
+                { this.props.spaces.map( space => this.createLineItem( space ) )  }
 
             </div>
         );

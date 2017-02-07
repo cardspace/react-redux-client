@@ -1,6 +1,8 @@
 
 export const spacesListActions = {
 
+    SPACES_FILTER_CHANGED : 'spaces.SPACES_FILTER_CHANGED',
+
     SPACES_FETCHED: 'spaces.SPACES_FETCHED', // When the spaces have been loaded from the server
 
     ADD_SPACE_CANCEL: 'spaces.ADD_SPACE_CANCEL', // Clears the add card form of any data

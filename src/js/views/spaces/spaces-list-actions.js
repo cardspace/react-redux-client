@@ -11,14 +11,17 @@ import { createValidationPayloadFromResponse, authenticationError, internalServe
 
 export function loadAllSpacesForCurrentUser () {
 
-    return ( dispatch ) => {
+    return ( dispatch, getState ) => {
+
+        const { filterState } = getState().spacesList;
+
 
         const config = {
             headers: { 'Authorization': `Bearer ${ getIdToken() }` }
         }
 
         axios
-            .get( `${ spaces_url }`, config )
+            .get( `${ spaces_url }?status=${filterState}`, standardConfig() )
             .then( response => dispatch( { type: spacesListActions.SPACES_FETCHED, payload: response.data } ) )
             .catch( error => {
 
@@ -38,6 +41,15 @@ export function loadAllSpacesForCurrentUser () {
              });
 
     }
+
+}
+
+export function changeFilter( filter ) {
+
+  return ( dispatch ) => {
+    dispatch( { type: spacesListActions.SPACES_FILTER_CHANGED, payload: filter  } );
+    dispatch( loadAllSpacesForCurrentUser() );
+  }
 
 }
 
@@ -91,7 +103,6 @@ export function cancelEdit( ) {
     return { type: spacesListActions.EDIT_SPACE_CANCELED }
 }
 
-
 export function deleteSpace( spaceId ) {
 
     return ( dispatch ) => {
@@ -135,7 +146,6 @@ export function deleteSpace( spaceId ) {
     }
 }
 
-
 export function markSpaceAsActive( spaceId ) {
 
    const getMarkAsActiveErrorAction = ( error ) => {
@@ -174,7 +184,6 @@ export function markSpaceAsActive( spaceId ) {
        
     }
 }
-
 
 export function markSpaceAsComplete( spaceId ) {
 

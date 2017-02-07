@@ -1,4 +1,4 @@
-
+import { spaceFilters } from './space-filters';
 import { spacesListActions } from './spaces-list-action-type';
 
 // state:
@@ -19,7 +19,8 @@ const emptyEditState = {
 
 const initialState = {
     spaces: [],
-    editState: emptyEditState
+    editState: emptyEditState,
+    filterState: spaceFilters.all
 }
 
 
@@ -31,6 +32,16 @@ actions[ spacesListActions.SPACES_FETCHED ] = ( state, action ) => {
     return {
         ...state,
         spaces: action.payload
+    }
+
+}
+
+
+actions[ spacesListActions.SPACES_FILTER_CHANGED ] = ( state, action ) => {
+
+    return {
+        ...state,
+        filterState: action.payload
     }
 
 }

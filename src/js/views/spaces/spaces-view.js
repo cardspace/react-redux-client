@@ -7,7 +7,8 @@ import { loadAllSpacesForCurrentUser
        , cancelEdit
        , deleteSpace
        , markSpaceAsActive
-       , markSpaceAsComplete } from './spaces-list-actions';
+       , markSpaceAsComplete
+       , changeFilter } from './spaces-list-actions';
 
 import { addSpace
        , cancelAdd } from './spaces-add-actions';
@@ -16,11 +17,13 @@ import { viewAllCards
        , viewSpace
        , changeView } from '../view-actions';
 
+import SpaceListFilter from './controls/space-list-filter-control';
 import SpaceList from './controls/space-list-control';
 import SpaceAdd from './controls/spaces-add-control';
 
 const mapStateToProps = ( state ) => {
     return {
+        filterState: state.spacesList.filterState,
         spaces: state.spacesList.spaces,
         editState: state.spacesList.editState,
         addState: state.spacesAdd
@@ -29,6 +32,8 @@ const mapStateToProps = ( state ) => {
 
 const mapDispatchToProps = ( dispatch ) => {
     return {
+        changeFilter: ( filter ) => dispatch( changeFilter( filter ) ),
+
         changeView: ( viewDetails ) => dispatch( changeView( viewDetails ) ),
         loadSpaces: () => dispatch( loadAllSpacesForCurrentUser()  ),
         editSpace: ( spaceId ) => dispatch( editSpace( spaceId ) ),
@@ -58,10 +63,16 @@ class SpacesView extends React.Component {
 
 
     render() {
+
         return(
             <div class='view'>
 
                 <div class='leftColumn'>
+                    <SpaceListFilter
+                        filterState={ this.props.filterState }
+                        changeFilter={ this.props.changeFilter } 
+
+                    />
                     <SpaceAdd 
                         addState={ this.props.addState }
                         addSpace={ this.props.addSpace }
@@ -74,6 +85,7 @@ class SpacesView extends React.Component {
                         spaces={ this.props.spaces }
                         editSpace={ this.props.editSpace }
                         loadSpaces={ this.props.loadSpaces }
+                        filterState={ this.props.filterState }
 
                         editState={ this.props.editState }
                         updateSpace={ this.props.updateSpace }
