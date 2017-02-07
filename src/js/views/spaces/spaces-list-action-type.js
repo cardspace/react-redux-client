@@ -17,6 +17,12 @@ export const spacesListActions = {
 
     DELETE_SPACE_SUCCEEDED: 'spaces.DELETE_SPACE_SUCCEEDED', // on successfull deletion of a space
 
+    SPACE_COMPLETE_SUCCEEDED: 'spaces.SPACE_COMPLETE_SUCCEEDED', // on completed succceeding
+    SPACE_COMPLETE_FAILED_NOT_FOUND: 'spaces.SPACE_COMPLETE_FAILED_NOT_FOUND', // completed failed because the card could not be found
+
+    SPACE_ACTIVATE_SUCCEEDED: 'space.SPACE_ACTIVATE_SUCCEEDED', // on activate succeeding
+    SPACE_ACTIVATE_FAILED_NOT_FOUND: 'space.SPACE_ACTIVATE_FAILED_NOT_FOUND'
+
 }
 
 

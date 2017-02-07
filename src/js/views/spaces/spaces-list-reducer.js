@@ -113,6 +113,37 @@ actions[ spacesListActions.EDIT_SPACE_CANCELED ] = ( state, action ) => {
 
 }
 
+actions[ spacesListActions.SPACE_COMPLETE_SUCCEEDED ] = ( state, action ) => {
+
+    const getSpace = ( space ) => {
+        return space.id != action.payload
+                ? space
+                : { ...space, status: 'complete' }
+    }
+
+    return { 
+        ...state, 
+        spaces: state.spaces.map( getSpace ), 
+    }
+
+}
+
+actions[ spacesListActions.SPACE_ACTIVATE_SUCCEEDED ] = ( state, action ) =>{
+
+    const getSpace = ( space ) => {
+        return space.id != action.payload
+                ? space
+                : { ...space, status: 'active' }
+    }
+
+    return { 
+        ...state, 
+        spaces: state.spaces.map( getSpace ), 
+    }
+
+};
+
+
 // spacesListActions.EDIT_SPACE_FAILED_NOT_FOUND
 //
 // Do nothing we will leave it 

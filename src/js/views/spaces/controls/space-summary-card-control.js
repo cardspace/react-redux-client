@@ -14,6 +14,46 @@ export default class SpaceSummaryCard extends React.Component {
 
     render() {
 
+        let completeClass = ( status ) => {
+
+            return status == 'complete'
+                ? ' card_is_complete'
+                : ' ';
+        }
+
+
+        let alterStatusButton = ( status ) => {
+
+            const activateButton = () => {
+
+                return (
+                    <button 
+                        class='space-summary-button' 
+                        onClick={ this.props.markSpaceAsActive } >
+                        Activate
+                    </button>
+                )
+            }
+
+            const completeButton = () => {
+
+                return (
+                    <button 
+                        class='space-summary-button' 
+                        onClick={ this.props.markSpaceAsComplete } >
+                        Complete
+                    </button>
+                )
+            }
+
+
+            if (!( this.props.markSpaceAsActive && this.props.markSpaceAsComplete )) return null
+
+            return status == 'active' 
+                    ? completeButton() 
+                    : activateButton();
+        }
+
         let deleteButton = ( ) => {
 
             const button = () => {
@@ -36,8 +76,8 @@ export default class SpaceSummaryCard extends React.Component {
             <div class='space-summary readonly' onDoubleClick={ this.props.editSpace } >
 
                 <div>
-                    <h2 class='space-summary-title'>{ this.props.space.title }</h2>
-                    <textarea class='space-summary-text' value={ this.props.space.text }></textarea>
+                    <h2 class={ `space-summary-title ${completeClass( this.props.space.status ) }` }>{ this.props.space.title }</h2>
+                    <textarea class={ `space-summary-text ${completeClass( this.props.space.status ) } ` } value={ this.props.space.text }></textarea>
                 </div>
 
                 <div class='space-summary-action-bar'>
@@ -47,6 +87,7 @@ export default class SpaceSummaryCard extends React.Component {
                     >
                         View
                     </button>
+                    { alterStatusButton( this.props.space.status ) }
                     { deleteButton() }
                 </div>
 

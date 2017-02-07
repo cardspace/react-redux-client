@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { standardConfig, standardErrorResponse } from '../../services/http';
 import { getIdToken } from '../../services/authentication-store';
 import { spacesListActions } from './spaces-list-action-type';
 import { spaces_url, space_url } from 'config';
@@ -131,6 +132,86 @@ export function deleteSpace( spaceId ) {
             }
 
         });
+    }
+}
+
+
+export function markSpaceAsActive( spaceId ) {
+
+   const getMarkAsActiveErrorAction = ( error ) => {
+
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 404 ) {
+
+            return { 
+                type: spacesListActions.SPACE_ACTIVATED_FAILED_NOT_FOUND,
+                payload: spaceId 
+            }
+        
+        } else {
+            return standardErrorResponse( responseStatus, error.response );
+        }
+
+    }
+
+
+
+    return ( dispatch ) => {
+
+        axios
+            .put( `${space_url}/${spaceId}/activate`, {}, standardConfig() )
+            .then( response => 
+            
+                dispatch( { 
+                    type: spacesListActions.SPACE_ACTIVATE_SUCCEEDED, 
+                    payload: spaceId 
+                })
+
+            )
+            .then( () => dispatch( loadAllSpacesForCurrentUser() ) )
+            .catch( error => dispatch( getMarkAsActiveErrorAction( error ) ) );
+       
+    }
+}
+
+
+export function markSpaceAsComplete( spaceId ) {
+
+    const getMarkAsCompletErrorAction = ( error ) => {
+
+        var responseStatus = getStatusCodeFromResponse( error.response );
+
+        if ( responseStatus == 404 ) {
+
+            return { 
+                type: spacesListActions.SPACE_COMPLETE_FAILED_NOT_FOUND,
+                payload: spaceId 
+            }
+
+        } else {
+            return standardErrorResponse( responseStatus, error.response );
+
+        }
+    }
+
+
+
+    return ( dispatch ) => {
+
+        axios
+            .put( `${space_url}/${spaceId}/completed`, {}, standardConfig() )
+            .then( response => 
+            
+                dispatch( { 
+                    type: spacesListActions.SPACE_COMPLETE_SUCCEEDED, 
+                    payload: spaceId 
+                })
+
+            )
+            .then( () => dispatch( loadCards() ) )
+            .catch( error => dispatch( getMarkAsCompletErrorAction( error ) ) );
+
     }
 }
 

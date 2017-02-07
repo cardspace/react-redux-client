@@ -43,6 +43,8 @@ export default class SpaceList extends React.Component {
                     editSpace={ this.props.editSpace.bind( this, space.id ) }
                     deleteSpace={ this.props.deleteSpace.bind( this, space.id ) } 
                     viewSpace={ this.props.viewSpace.bind( this, space.id ) }
+                    markSpaceAsActive={ this.props.markSpaceAsActive.bind( this, space.id ) }
+                    markSpaceAsComplete={ this.props.markSpaceAsComplete.bind( this, space.id ) }
                 />
             )
         }
