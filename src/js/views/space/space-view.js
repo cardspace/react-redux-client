@@ -10,6 +10,9 @@ import AddCard from  '../../components/cards/controls/add-card-control';
 import { buildCardListActions } from '../../components/cards/card-list-actions';
 import { buildAddCardActions } from  '../../components/cards/add-card-actions';
 
+import { enterView } from './space-view-actions';
+
+
 import { changeView } from '../view-actions';
 
 
@@ -43,6 +46,7 @@ const mapDispatchToProps = ( dispatch, ownProps ) => {
     }
 
     return {
+        enterView : () => dispatch( enterView( ownProps.routeParams.id ) ),
 
         changeView : ( viewDetails ) => dispatch( changeView( viewDetails ) ),
 
@@ -70,9 +74,10 @@ class SpaceView extends React.Component {
     constructor( props ) {
         super( props );
 
-        this.props.changeView({
-            title: 'Space'
-        })
+        this.props.enterView();
+        // this.props.changeView({
+        //     title: 'Space'
+        // })
     }
 
     render() {

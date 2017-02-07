@@ -14,7 +14,7 @@ export const cards_url = 'https://cardspace-api-dev.herokuapp.com/v1/cards';
 export const card_url = 'https://cardspace-api-dev.herokuapp.com/v1/card';
 
 export const spaces_url = 'https://cardspace-api-dev.herokuapp.com/v1/spaces';
-export const space_url = 'https://cardspace-api-dev.herokuapp.com/v1/space/';
+export const space_url = 'https://cardspace-api-dev.herokuapp.com/v1/space';
 
 export const space_cards_url = 'https://cardspace-api-dev.herokuapp.com/v1/space/:id/cards';
 
